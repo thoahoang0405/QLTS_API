@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Misa.Web01.HCSN.COMMON\Misa.Web01.HCSN.COMMON.csproj" />
+    <ProjectReference Include="..\Misa.Web01.HCSN.DL\Misa.Web01.HCSN.DL.csproj" />
+  </ItemGroup>
+
+</Project>

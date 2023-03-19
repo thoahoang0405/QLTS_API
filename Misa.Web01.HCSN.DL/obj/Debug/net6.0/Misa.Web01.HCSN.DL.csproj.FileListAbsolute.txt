@@ -1,0 +1,15 @@
+D:\misa\HCSN\API\MISA.WEB01.HCSN\Misa.Web01.HCSN.DL\obj\Debug\net6.0\Misa.Web01.HCSN.DL.csproj.AssemblyReference.cache
+D:\misa\HCSN\API\MISA.WEB01.HCSN\Misa.Web01.HCSN.DL\obj\Debug\net6.0\Misa.Web01.HCSN.DL.GeneratedMSBuildEditorConfig.editorconfig
+D:\misa\HCSN\API\MISA.WEB01.HCSN\Misa.Web01.HCSN.DL\obj\Debug\net6.0\Misa.Web01.HCSN.DL.AssemblyInfoInputs.cache
+D:\misa\HCSN\API\MISA.WEB01.HCSN\Misa.Web01.HCSN.DL\obj\Debug\net6.0\Misa.Web01.HCSN.DL.AssemblyInfo.cs
+D:\misa\HCSN\API\MISA.WEB01.HCSN\Misa.Web01.HCSN.DL\obj\Debug\net6.0\Misa.Web01.HCSN.DL.csproj.CoreCompileInputs.cache
+D:\misa\HCSN\API\MISA.WEB01.HCSN\Misa.Web01.HCSN.DL\bin\Debug\net6.0\Misa.Web01.HCSN.DL.deps.json
+D:\misa\HCSN\API\MISA.WEB01.HCSN\Misa.Web01.HCSN.DL\bin\Debug\net6.0\Misa.Web01.HCSN.DL.dll
+D:\misa\HCSN\API\MISA.WEB01.HCSN\Misa.Web01.HCSN.DL\bin\Debug\net6.0\Misa.Web01.HCSN.DL.pdb
+D:\misa\HCSN\API\MISA.WEB01.HCSN\Misa.Web01.HCSN.DL\bin\Debug\net6.0\Misa.Web01.HCSN.COMMON.dll
+D:\misa\HCSN\API\MISA.WEB01.HCSN\Misa.Web01.HCSN.DL\bin\Debug\net6.0\Misa.Web01.HCSN.COMMON.pdb
+D:\misa\HCSN\API\MISA.WEB01.HCSN\Misa.Web01.HCSN.DL\obj\Debug\net6.0\Misa.Web01.HCSN.DL.csproj.CopyComplete
+D:\misa\HCSN\API\MISA.WEB01.HCSN\Misa.Web01.HCSN.DL\obj\Debug\net6.0\Misa.Web01.HCSN.DL.dll
+D:\misa\HCSN\API\MISA.WEB01.HCSN\Misa.Web01.HCSN.DL\obj\Debug\net6.0\refint\Misa.Web01.HCSN.DL.dll
+D:\misa\HCSN\API\MISA.WEB01.HCSN\Misa.Web01.HCSN.DL\obj\Debug\net6.0\Misa.Web01.HCSN.DL.pdb
+D:\misa\HCSN\API\MISA.WEB01.HCSN\Misa.Web01.HCSN.DL\obj\Debug\net6.0\ref\Misa.Web01.HCSN.DL.dll

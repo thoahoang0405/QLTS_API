@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\MISA.WEB01.HCSN.props" />
+</Project>
