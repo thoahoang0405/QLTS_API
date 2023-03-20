@@ -112,7 +112,7 @@ namespace Misa.Web01.HCSN.DL
         /// trước khi thêm dữ liệu thì lấy id tự động, ngày tạo và ngày sửa là ngày hiện tại
         /// </summary>
         /// <param name="entity"></param>
-        /// CreatedBy: HTTHOA(12/08/2022)
+        /// CreatedBy: HTTHOA(12/03/2022)
 
         public int DeleteMultiple(List<Guid> listId)
         {

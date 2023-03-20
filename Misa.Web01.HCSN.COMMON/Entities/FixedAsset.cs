@@ -1,5 +1,6 @@
 ﻿
 
+using Misa.Web01.HCSN.BL.BaseBL;
 using Misa.Web01.HCSN.COMMON.entities;
 using System;
 using System.ComponentModel.DataAnnotations;
@@ -21,19 +22,21 @@ namespace MISA.WEB01.HCSN.Common.entities
         /// Id tài sản
         /// </summary>
         [Key]
+        [DuplicateAttribute]
+        [Required]
         public Guid fixed_asset_id { get; set; }
 
         /// <summary>
         /// Mã tài sản
         /// </summary>
 
-        [Required(ErrorMessage = "Mã tài sản không được trống")]
+        [Required]
         public string fixed_asset_code { get; set; }
 
         /// <summary>
         /// Tên nhân viên
         /// </summary>
-        [Required(ErrorMessage = "Tên tài sản không được trống")]
+        [Required]
         public string fixed_asset_name { get; set; }
 
         [Required]

@@ -1,14 +1,19 @@
 ﻿
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MISA.WEB01.HCSN.COMMON.Entities.DTO
+namespace MISA.WEB01.HCSN.COMMON
 {
     public class ErrorResult
     {
+        private MISAErrorCode errorCode;
+        private string message;
+        private IDictionary data;
+        private string notFoundDev;
         #region Property
 
         /// <summary>
@@ -40,7 +45,7 @@ namespace MISA.WEB01.HCSN.COMMON.Entities.DTO
 
         #region Constructor
 
-        public ErrorResult()
+        public ErrorResult(MISAErrorCode notFound, string serverException)
         {
 
         }
@@ -52,6 +57,18 @@ namespace MISA.WEB01.HCSN.COMMON.Entities.DTO
             DevMsg = devMsg;
             MoreInfo = moreInfo;
             TraceId = traceId;
+        }
+
+        public ErrorResult(MISAErrorCode errorCode, string message, IDictionary data)
+        {
+            this.errorCode = errorCode;
+            this.message = message;
+            this.data = data;
+        }
+
+        public ErrorResult(MISAErrorCode notFound, string serverException, string notFoundDev) : this(notFound, serverException)
+        {
+            this.notFoundDev = notFoundDev;
         }
 
         #endregion

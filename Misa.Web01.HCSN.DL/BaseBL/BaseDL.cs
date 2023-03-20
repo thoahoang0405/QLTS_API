@@ -25,7 +25,7 @@ namespace Misa.Web01.HCSN.BL.BaseBL
         /// </summary>
         /// <param name=""></param>
         /// <returns></returns>
-        /// CreatedBy: HTTHOA(16/08/2022)
+        /// CreatedBy: HTTHOA(16/03/2023)
         public virtual Guid InsertRecord(T record)
         {
             var newId = Guid.NewGuid();
@@ -77,7 +77,7 @@ namespace Misa.Web01.HCSN.BL.BaseBL
         /// </summary>
         /// <param name=""></param>
         /// <returns></returns>
-        /// CreatedBy: HTTHOA(16/08/2022)
+        /// CreatedBy: HTTHOA(16/03/2023)
         public int UpdateRecord(T entity, Guid id)
         { 
             string tableName = EntityUtilities.GetTableName<T>();
@@ -111,7 +111,7 @@ namespace Misa.Web01.HCSN.BL.BaseBL
             /// </summary>
             /// <param name=""></param>
             /// <returns></returns>
-            /// CreatedBy: HTTHOA(16/08/2022)
+            /// CreatedBy: HTTHOA(16/03/2023)
             public IEnumerable<dynamic> GetAllRecords()
         {
             using (var sqlConnection = new MySqlConnection(_connectionDB))
@@ -130,7 +130,7 @@ namespace Misa.Web01.HCSN.BL.BaseBL
         /// </summary>
         /// <param name=""></param>
         /// <returns></returns>
-        /// CreatedBy: HTTHOA(16/08/2022)
+        /// CreatedBy: HTTHOA(16/03/2023)
 
         public int DeleteRecordID(Guid id)
         {
@@ -157,7 +157,7 @@ namespace Misa.Web01.HCSN.BL.BaseBL
         /// </summary>
         /// <param name=""></param>
         /// <returns></returns>
-        /// CreatedBy: HTTHOA(16/08/2022)
+        /// CreatedBy: HTTHOA(16/03/2023)
 
         public T GetRecordByID(Guid id)
         {
@@ -178,7 +178,7 @@ namespace Misa.Web01.HCSN.BL.BaseBL
         /// </summary>
         /// <param name=""></param>
         /// <returns></returns>
-        /// CreatedBy: HTTHOA(16/0333/2022)
+        /// CreatedBy: HTTHOA(16/0333/2023)
 
         public string GetNewCode()
         {
@@ -195,6 +195,36 @@ namespace Misa.Web01.HCSN.BL.BaseBL
                 // Trả về dữ liệu cho client
                 return newCode;
             }
+        }
+        public bool CheckDuplicateCode(T record)
+        {
+           
+            // lấy mã record
+            var duplicateProperty = typeof(T).GetProperties().FirstOrDefault(prop => prop.GetCustomAttributes(typeof(DuplicateAttribute), true).Count() > 0);
+            var code = duplicateProperty?.GetValue(record);
+
+            //lấy tên procedure
+            string tableName = EntityUtilities.GetTableName<T>();
+            string procedureName = $"Proc_{tableName}_DuplicateCode";
+           
+            //tạo các param
+            string className = typeof(T).Name;
+            var parameters = new DynamicParameters();
+            parameters.Add($"v_Code", code);
+          
+
+            using (var mySqlConnection = new MySqlConnection(_connectionDB))
+            {
+                // thực hiện chạy câu lệnh 
+                var result = mySqlConnection.QueryFirstOrDefault<T>(procedureName, parameters, commandType: System.Data.CommandType.StoredProcedure);
+
+                if (result == null)
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
 
         #endregion

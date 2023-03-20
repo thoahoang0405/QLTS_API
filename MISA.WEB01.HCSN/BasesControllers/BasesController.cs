@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Misa.Web01.HCSN.BL;
 using Misa.Web01.HCSN.COMMON;
+using MISA.WEB01.HCSN.COMMON;
 using MySql.Data.MySqlClient;
 using System.Reflection;
 
@@ -34,18 +35,14 @@ namespace MISA.WEB01.HCSN.BaseControllers
         /// </summary>
         /// <param name = "record" ></ param >
         /// < returns > trả về validate nếu lỗi validate, trả về HttpContext nếu bị trùng mã và exception, trả về data nếu thành công</returns>
-        /// CreatedBy: HTTHOA(16/08/2022)
+        /// CreatedBy: HTTHOA(16/03/2023)
         [HttpPost]
         public virtual IActionResult InsertRecord([FromBody] T record)
         {
 
             try
             {
-                ///var validate = "lỗi";
-                //if (validate != null)
-                //{
-                //    return StatusCode(StatusCodes.Status400BadRequest, validate);
-                //}
+               
 
                 var numberOfAffectedRows = _baseBL.InsertRecord(record);
 
@@ -55,17 +52,18 @@ namespace MISA.WEB01.HCSN.BaseControllers
                 return StatusCode(StatusCodes.Status201Created, record);
 
             }
-            else
-            {
-
-                return StatusCode(StatusCodes.Status400BadRequest, Resource.Error_BadRequest);
-            }
-            }
+                return StatusCode(StatusCodes.Status500InternalServerError, HandleError.GenerateServerErrorResult());
             
+            }
 
-            catch (Exception ex)
+
+            catch (ExceptionService ex)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, ex);
+                if (ex.ErrorCode == MISAErrorCode.DuplicateCode)
+                {
+                    return StatusCode(StatusCodes.Status400BadRequest, HandleError.GenerateDuplicateErrorResult(ex));
+                }
+                return StatusCode(StatusCodes.Status400BadRequest, HandleError.GenerateValidateErrorResult(ex));
             }
         }
         /// <summary>
@@ -73,7 +71,7 @@ namespace MISA.WEB01.HCSN.BaseControllers
         /// </summary>
         /// <param name="employeeID"></param>
         ///<returns> status400 nếu lỗi ; return về status200 nếu thành công </returns>
-        /// CreatedBy: HTTHOA(16/08/2022)
+        /// CreatedBy: HTTHOA(16/03/2023)
 
         [HttpPut("{id}")]
         public IActionResult UpdateRecord([FromBody] T entity, [FromRoute] Guid id)
@@ -108,7 +106,7 @@ namespace MISA.WEB01.HCSN.BaseControllers
         /// </summary>
         /// <param name=""></param>
         /// <returns>về status500 hoặc status400 nếu lỗi ; return về status200 nếu thành công</returns>
-        /// CreatedBy: HTTHOA(30/08/2022)
+        /// CreatedBy: HTTHOA(15/03/2023)
 
         [HttpGet]
         public IActionResult GetAllRecords()
@@ -140,7 +138,7 @@ namespace MISA.WEB01.HCSN.BaseControllers
         /// </summary>
         /// <param name="employeeID"></param>
         ///<returns>về status500 hoặc status400 nếu lỗi ; return về status200 nếu thành công </returns>
-        /// CreatedBy: HTTHOA(16/08/2022)
+        /// CreatedBy: HTTHOA(16/03/2023)
 
         [HttpGet("{id}")]
         public IActionResult GetRecordID([FromRoute] Guid id)
@@ -173,7 +171,7 @@ namespace MISA.WEB01.HCSN.BaseControllers
         /// </summary>
         /// <param name=""></param>
         /// ><returns>về status500 hoặc status400 nếu lỗi ; return về status200 nếu thành công </returns>
-        /// CreatedBy: HTTHOA(16/08/2022)
+        /// CreatedBy: HTTHOA(16/03/2023)
 
         [HttpGet("NewCode")]
 
@@ -197,7 +195,7 @@ namespace MISA.WEB01.HCSN.BaseControllers
         /// </summary>
         /// <param name="employeeID"></param>
         /// <returns>về status500 hoặc status400 nếu lỗi ; return về status200 nếu thành công</returns>
-        /// CreatedBy: HTTHOA(16/08/2022)
+        /// CreatedBy: HTTHOA(16/03/2023)
 
         [HttpDelete("{id}")]
 

@@ -13,7 +13,7 @@ namespace Misa.Web01.HCSN.BL
         /// </summary>
         /// <param name="record"></param>
         /// <returns></returns>
-        /// CreatedBy: HTTHOA(20/08/2022)
+        /// CreatedBy: HTTHOA(15/03/2023)
         public Guid InsertRecord(T record);
 
         /// <summary>
@@ -21,7 +21,7 @@ namespace Misa.Web01.HCSN.BL
         /// </summary>
         /// <param name="record"></param>
         /// <returns></returns>
-        /// CreatedBy: HTTHOA(25/08/2022)
+        /// CreatedBy: HTTHOA(15/03/2023)
         public int UpdateRecord(T entity, Guid id);
 
         /// <summary>
@@ -29,7 +29,7 @@ namespace Misa.Web01.HCSN.BL
         /// </summary>
         /// <param name=""></param>
         /// <returns></returns>
-        /// CreatedBy: HTTHOA(16/08/2022)
+        /// CreatedBy: HTTHOA(16/03/2023)
         public IEnumerable<dynamic> GetAllRecords();
 
         /// <summary>
@@ -37,7 +37,7 @@ namespace Misa.Web01.HCSN.BL
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        /// CreatedBy: HTTHOA(16/08/2022)
+        /// CreatedBy: HTTHOA(16/03/2023)
         public int DeleteRecordID(Guid id);
 
         /// <summary>
@@ -45,7 +45,7 @@ namespace Misa.Web01.HCSN.BL
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        /// CreatedBy: HTTHOA(16/08/2022)
+        /// CreatedBy: HTTHOA(16/03/2023)
         public T GetRecordByID(Guid id);
 
         /// <summary>
@@ -53,7 +53,8 @@ namespace Misa.Web01.HCSN.BL
         /// </summary>
         /// <param name=""></param>
         /// <returns></returns>
-        /// CreatedBy: HTTHOA(16/08/2022)
+        /// CreatedBy: HTTHOA(16/03/2023)
         public string GetNewCode();
+       
     }
 }
