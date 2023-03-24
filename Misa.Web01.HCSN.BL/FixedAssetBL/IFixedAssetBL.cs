@@ -12,7 +12,7 @@ namespace Misa.Web01.HCSN.BL
 {
     public interface IFixedAssetBL : IBaseBL<FixedAsset>
     {
-        public PagingData<FixedAsset> FilterFixedAsset(string? keyword, int? pageSize, int? pageNumber, string? departmentName, string? fixedAssetCategoryName);
+        public PagingData<FixedAsset> FilterFixedAsset(string? keyword, int? pageSize, string? departmentID, string? fixedAssetCategoryID, int? pageNumber);
         
         public int DeleteMultiple(List<Guid> listId);
 

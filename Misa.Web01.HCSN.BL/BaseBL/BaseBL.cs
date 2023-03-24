@@ -1,5 +1,6 @@
 ﻿using Misa.Web01.HCSN.BL;
 using MISA.WEB01.HCSN.COMMON;
+using MISA.WEB01.HCSN.COMMON.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -87,11 +88,12 @@ namespace Misa.Web01.HCSN.BL
         {
             return _baseDL.GetNewCode();
         }
+       
         public virtual void Validate(T record)
         {
 
             // lấy danh sách property
-            string className = typeof(T).Name;
+            string className = EntityUtilities.GetTableName<T>();
             var properties = typeof(T).GetProperties();
 
             // tạo dictionerry để lưu lại lỗi

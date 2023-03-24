@@ -22,7 +22,7 @@ namespace MISA.WEB01.HCSN.Common.entities
         /// Id tài sản
         /// </summary>
         [Key]
-        [DuplicateAttribute]
+        
         [Required]
         public Guid fixed_asset_id { get; set; }
 
@@ -31,6 +31,7 @@ namespace MISA.WEB01.HCSN.Common.entities
         /// </summary>
 
         [Required]
+        [DuplicateAttribute]
         public string fixed_asset_code { get; set; }
 
         /// <summary>
@@ -44,7 +45,7 @@ namespace MISA.WEB01.HCSN.Common.entities
         /// <summary>
         /// tên đơn vị
         /// </summary>
-        [Required(ErrorMessage = "Đơn vị không được trống")]
+        [Required]
         public string department_name { get; set; }
 
 

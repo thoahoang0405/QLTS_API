@@ -42,18 +42,18 @@ namespace MISA.WEB01.HCSN.BaseControllers
 
             try
             {
-               
+
 
                 var numberOfAffectedRows = _baseBL.InsertRecord(record);
 
 
-            if (numberOfAffectedRows != Guid.Empty)
-            {
-                return StatusCode(StatusCodes.Status201Created, record);
+                if (numberOfAffectedRows != Guid.Empty)
+                {
+                    return StatusCode(StatusCodes.Status201Created, numberOfAffectedRows);
 
-            }
+                }
                 return StatusCode(StatusCodes.Status500InternalServerError, HandleError.GenerateServerErrorResult());
-            
+
             }
 
 
@@ -96,7 +96,7 @@ namespace MISA.WEB01.HCSN.BaseControllers
 
                 return StatusCode(StatusCodes.Status500InternalServerError, ex);
             }
-            
+
 
         }
 
@@ -196,8 +196,10 @@ namespace MISA.WEB01.HCSN.BaseControllers
         /// <param name="employeeID"></param>
         /// <returns>về status500 hoặc status400 nếu lỗi ; return về status200 nếu thành công</returns>
         /// CreatedBy: HTTHOA(16/03/2023)
+        /// CreatedBy: HTTHOA(16/03/2023)
 
         [HttpDelete("{id}")]
+
 
         public IActionResult DeleteEmployeeByID([FromRoute] Guid id)
         {
@@ -222,6 +224,6 @@ namespace MISA.WEB01.HCSN.BaseControllers
                 return StatusCode(StatusCodes.Status500InternalServerError, "lỗi");
             }
         }
-
+        
     }
 }

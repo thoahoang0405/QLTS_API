@@ -2,6 +2,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,65 +11,41 @@ namespace MISA.WEB01.HCSN.COMMON
 {
     public class ErrorResult
     {
-        private MISAErrorCode errorCode;
-        private string message;
-        private IDictionary data;
-        private string notFoundDev;
-        #region Property
+
+         /// <summary>
+           /// định danh mã lỗi nội bộ
+           /// </summary>
+        public MISAErrorCode ErrorCode { get; set; } = MISAErrorCode.Exception;
 
         /// <summary>
-        /// Định danh của mã lỗi nội bộ
+        /// thông báo lỗi 
         /// </summary>
-        //public ErrorCodes ErrorCode { get; set; } = ErrorCodes.Exception;
+        public string? Message { get; set; }
 
         /// <summary>
-        /// Thông báo cho user. Không bắt buộc, tùy theo đặc thù từng dịch vụ và client tích hợp
+        /// thông tin chi tiết hơn về lỗi
         /// </summary>
-        public string? UserMsg { get; set; }
+        public object? Data { get; set; }
 
         /// <summary>
-        /// Thông báo cho Dev. Thông báo ngắn gọn để thông báo cho Dev biết vấn đề đang gặp phải
+        /// mã tra cứu lỗi 
         /// </summary>
-        public object? DevMsg { get; set; }
-
-        /// <summary>
-        /// Thông tin chi tiết hơn về vấn đề. Ví dụ: Đường dẫn mô tả về mã lỗi
-        /// </summary>
-        public string? MoreInfo { get; set; }
-
-        /// <summary>
-        /// Mã để tra cứu thông tin log: ELK, file log,...
-        /// </summary>
-        public string? TraceId { get; set; }
-
-        #endregion
-
+        //public string? TraceId { get; set; }
         #region Constructor
 
-        public ErrorResult(MISAErrorCode notFound, string serverException)
-        {
+        //public ErrorResult(MISAErrorCode notFound, string serverException)
+        //{
 
+        //}
+        public ErrorResult()
+        {
         }
 
-        public ErrorResult(string? userMsg, object? devMsg, string? moreInfo, string? traceId)
+        public ErrorResult(MISAErrorCode errorCode, string? mesage, object? data)
         {
-           
-            UserMsg = userMsg;
-            DevMsg = devMsg;
-            MoreInfo = moreInfo;
-            TraceId = traceId;
-        }
-
-        public ErrorResult(MISAErrorCode errorCode, string message, IDictionary data)
-        {
-            this.errorCode = errorCode;
-            this.message = message;
-            this.data = data;
-        }
-
-        public ErrorResult(MISAErrorCode notFound, string serverException, string notFoundDev) : this(notFound, serverException)
-        {
-            this.notFoundDev = notFoundDev;
+            ErrorCode = errorCode;
+            Message = mesage;
+            Data = data;
         }
 
         #endregion

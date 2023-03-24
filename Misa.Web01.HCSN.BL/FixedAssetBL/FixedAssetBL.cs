@@ -18,9 +18,9 @@ namespace Misa.Web01.HCSN.BL
             _fixedAssetDL = fixedAssetDL;
         }
       
-        public PagingData<FixedAsset> FilterFixedAsset(string? keyword, int? pageSize, int? pageNumber, string? departmentName, string? fixedAssetCategoryName)
+        public PagingData<FixedAsset> FilterFixedAsset(string? keyword, int? pageSize, string? departmentID, string? fixedAssetCategoryID, int? pageNumber)
         {
-            return _fixedAssetDL.FilterFixedAsset(keyword, pageSize, pageNumber, departmentName,fixedAssetCategoryName);
+            return _fixedAssetDL.FilterFixedAsset(keyword, pageSize, departmentID, fixedAssetCategoryID, pageNumber);
            
         } 
         public int DeleteMultiple(List<Guid> listId)

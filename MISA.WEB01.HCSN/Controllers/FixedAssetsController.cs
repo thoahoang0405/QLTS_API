@@ -15,11 +15,15 @@ namespace MISA.WEB01.HCSN.Controllers
     public class FixedAssetsController : BasesController<FixedAsset>
     {
         private IFixedAssetBL _fixedAssetBL;
+      
+
         public FixedAssetsController(IFixedAssetBL fixedAssetBL) : base(fixedAssetBL)
         {
             _fixedAssetBL = fixedAssetBL;
         }
-     
+
+       
+
 
         /// <summary>
         ///  lấy dữ liệu phân trang
@@ -31,10 +35,10 @@ namespace MISA.WEB01.HCSN.Controllers
         [SwaggerResponse(StatusCodes.Status200OK, type: typeof(PagingData<FixedAsset>))]
         [SwaggerResponse(StatusCodes.Status400BadRequest)]
         [SwaggerResponse(StatusCodes.Status500InternalServerError)]
-        public IActionResult FilterEmployees([FromQuery] string? keyword, [FromQuery] int pageSize, [FromQuery] int pageNumber, [FromQuery] string? departmentName, [FromQuery] string? fixedAssetCategoryName )
+        public IActionResult FilterEmployees([FromQuery] string? keyword, [FromQuery] int? pageSize,  [FromQuery] string? departmentID, [FromQuery] string? fixedAssetCategoryID, [FromQuery] int pageNumber=1)
         {
             
-                var multipleResults = _fixedAssetBL.FilterFixedAsset(keyword, pageSize, pageNumber, departmentName, fixedAssetCategoryName);
+                var multipleResults = _fixedAssetBL.FilterFixedAsset(keyword, pageSize, departmentID, fixedAssetCategoryID, pageNumber);
                 if (multipleResults != null)
                 {
                     return StatusCode(StatusCodes.Status200OK, multipleResults);

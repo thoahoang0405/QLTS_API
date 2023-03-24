@@ -16,13 +16,13 @@ namespace Misa.Web01.HCSN.DL
     public class FixedAssetDL:BaseDL<FixedAsset>, IFixedAssetDL
     {
         #region Field
-        readonly string _connectionDB = "Server= localhost; Port=3306; Database=misa.hcsn.web01; User Id = root;Password=123456 ";
+        readonly string _connectionDB = DatabaseContext.ConnectionString;
 
         #endregion
 
      
 
-        public PagingData<FixedAsset> FilterFixedAsset(string? keyword, int? pageSize, int? pageNumber, string? departmentName, string? fixedAssetCategoryName)
+        public PagingData<FixedAsset> FilterFixedAsset(string? keyword, int? pageSize, string? departmentID, string? fixedAssetCategoryID, int? pageNumber)
         {
            
                string storedProcedureName = "Proc_fixed_asset_GetPaging";
@@ -71,9 +71,9 @@ namespace Misa.Web01.HCSN.DL
             parameters.Add("v_Limit", pageSize);
             parameters.Add("v_Offset", (pageNumber - 1) * pageSize);
             parameters.Add("v_Where", string.Format("" +
-                   "department_name like '%{0}%' AND fixed_asset_category_name like '%{1}%' " +
+                   "department_id like '%{0}%' AND fixed_asset_category_id like '%{1}%' " +
                    " AND ( fixed_asset_name like '%{2}%' OR fixed_asset_code like '%{2}%')",
-                   departmentName, fixedAssetCategoryName, keyword));
+                   departmentID, fixedAssetCategoryID, keyword));
             using (var sqlConnection = new MySqlConnection(_connectionDB))
                 {
                     // Thực hiện gọi vào DB để chạy stored procedure với tham số đầu vào ở trên
@@ -87,15 +87,16 @@ namespace Misa.Web01.HCSN.DL
 
                         if (TotalRecords >= 0 && pageSize > 0)
                         {
-                            TotalPagesAll = (int)(decimal)(TotalRecords / pageSize);
-                            if (TotalPagesAll % pageSize != 0)
-                            {
-                                TotalPagesAll = TotalPagesAll + 1;
-                            }
+                        TotalPagesAll = (int)(decimal)(TotalRecords / pageSize);
+                        if (TotalRecords % pageSize != 0)
+                        {
+                            TotalPagesAll = TotalPagesAll + 1;
                         }
+                    }
+                    //else if(TotalRecords >= 0)
 
 
-                   
+
                     return new PagingData<FixedAsset>()
                     {
                         Data = fixedAssets,

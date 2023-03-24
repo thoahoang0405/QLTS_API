@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace Misa.Web01.HCSN.DL
 {
-    public class DataBaseContext
+    public class DatabaseContext
     {
         /// <summary>
         /// Chuỗi kết nối đến database MySQL
         /// </summary>
-        public static string ConnectionString;
+        public static string ConnectionString="";
     }
 }
