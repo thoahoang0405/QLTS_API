@@ -21,11 +21,11 @@ namespace Misa.Web01.HCSN.BL.BaseBL
 
         #region method
         /// <summary>
-        /// Thêm bản ghi
+        /// thêm bản ghi
         /// </summary>
-        /// <param name=""></param>
+        /// <param name="record"></param>
         /// <returns></returns>
-        /// CreatedBy: HTTHOA(16/03/2023)
+        ///  CreatedBy: HTTHOA(16/03/2023)
         public virtual Guid InsertRecord(T record)
         {
             var newId = Guid.NewGuid();
@@ -69,15 +69,14 @@ namespace Misa.Web01.HCSN.BL.BaseBL
             } 
            
         }
-
         
-
         /// <summary>
         /// Sửa bản ghi
         /// </summary>
         /// <param name=""></param>
         /// <returns></returns>
         /// CreatedBy: HTTHOA(16/03/2023)
+        
         public int UpdateRecord(T entity, Guid id)
         { 
             string tableName = EntityUtilities.GetTableName<T>();
@@ -196,6 +195,11 @@ namespace Misa.Web01.HCSN.BL.BaseBL
                 return newCode;
             }
         }
+        /// <summary>
+        /// lấy mã code và check trùng mã
+        /// </summary>
+        /// <param name="record"></param>
+        /// <returns></returns>
         public bool CheckDuplicateCode(T record)
         {
            

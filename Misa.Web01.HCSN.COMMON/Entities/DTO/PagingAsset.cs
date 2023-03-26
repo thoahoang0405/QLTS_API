@@ -17,6 +17,9 @@ namespace Misa.Web01.HCSN.COMMON.Entities.DTO
         /// Tổng số bản ghi thỏa mãn điều kiện
         /// </summary>
         public long TotalCount { get; set; }
+        public long TotalPage { get; set; }
+
+        public long TotalCost { get; set; }
 
         public PagingAsset()
         {

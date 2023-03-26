@@ -18,7 +18,13 @@ namespace MISA.WEB01.HCSN.COMMON
         public ExceptionService()
         {
         }
-
+        /// <summary>
+        /// check trả về lỗi exception
+        /// </summary>
+        /// <param name="errorMessage"></param>
+        /// <param name="errors"></param>
+        /// <param name="errorCode"></param>
+        ///  CreatedBy: HTTHOA(16/03/2023)
         public ExceptionService(string errorMessage, IDictionary errors, MISAErrorCode errorCode)
         {
             ErrorMessage = errorMessage;

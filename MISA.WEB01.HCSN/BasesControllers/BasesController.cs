@@ -42,8 +42,6 @@ namespace MISA.WEB01.HCSN.BaseControllers
 
             try
             {
-
-
                 var numberOfAffectedRows = _baseBL.InsertRecord(record);
 
 
@@ -86,15 +84,15 @@ namespace MISA.WEB01.HCSN.BaseControllers
                 {
                     return StatusCode(StatusCodes.Status200OK, id);
                 }
-                else
-                {
-                    return StatusCode(StatusCodes.Status400BadRequest, Resource.Error_BadRequest);
-                }
+                return StatusCode(StatusCodes.Status500InternalServerError, HandleError.GenerateServerErrorResult());
             }
-            catch (Exception ex)
+            catch (ExceptionService ex)
             {
-
-                return StatusCode(StatusCodes.Status500InternalServerError, ex);
+                if (ex.ErrorCode == MISAErrorCode.DuplicateCode)
+                {
+                    return StatusCode(StatusCodes.Status400BadRequest, HandleError.GenerateDuplicateErrorResult(ex));
+                }
+                return StatusCode(StatusCodes.Status400BadRequest, HandleError.GenerateValidateErrorResult(ex));
             }
 
 
@@ -122,21 +120,21 @@ namespace MISA.WEB01.HCSN.BaseControllers
                 }
                 else
                 {
-                    return StatusCode(StatusCodes.Status404NotFound);
+                    return StatusCode(StatusCodes.Status404NotFound, ErrorResource.NotFound);
                 }
 
             }
             catch (Exception ex)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, "lỗi");
+                return StatusCode(StatusCodes.Status500InternalServerError, ErrorResource.ExceptionMsg);
             }
         }
 
 
         /// <summary>
-        /// Lấy nhân viên theo ID
+        /// Lấy bản ghi theo ID
         /// </summary>
-        /// <param name="employeeID"></param>
+        /// <param name="GetRecordID"></param>
         ///<returns>về status500 hoặc status400 nếu lỗi ; return về status200 nếu thành công </returns>
         /// CreatedBy: HTTHOA(16/03/2023)
 
@@ -160,14 +158,14 @@ namespace MISA.WEB01.HCSN.BaseControllers
             catch (Exception ex)
             {
 
-                return StatusCode(StatusCodes.Status500InternalServerError, "lỗi");
+                return StatusCode(StatusCodes.Status500InternalServerError, ErrorResource.ExceptionMsg);
             }
 
 
 
         }
         /// <summary>
-        /// Lấy mã nhân viên mới
+        /// Lấy mã  mới
         /// </summary>
         /// <param name=""></param>
         /// ><returns>về status500 hoặc status400 nếu lỗi ; return về status200 nếu thành công </returns>
@@ -187,16 +185,16 @@ namespace MISA.WEB01.HCSN.BaseControllers
             catch (Exception ex)
             {
 
-                return StatusCode(StatusCodes.Status500InternalServerError, "lỗi");
+                return StatusCode(StatusCodes.Status500InternalServerError, ErrorResource.ExceptionMsg);
             }
         }
         /// <summary>
-        /// API xóa nhân viên
+        /// API xóa 1 bản ghi
         /// </summary>
         /// <param name="employeeID"></param>
         /// <returns>về status500 hoặc status400 nếu lỗi ; return về status200 nếu thành công</returns>
         /// CreatedBy: HTTHOA(16/03/2023)
-        /// CreatedBy: HTTHOA(16/03/2023)
+      
 
         [HttpDelete("{id}")]
 
@@ -216,12 +214,12 @@ namespace MISA.WEB01.HCSN.BaseControllers
                 }
                 else
                 {
-                    return StatusCode(StatusCodes.Status400BadRequest, "e002");
+                    return StatusCode(StatusCodes.Status400BadRequest, ErrorResource.NotFound);
                 }
             }
             catch (Exception ex)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, "lỗi");
+                return StatusCode(StatusCodes.Status500InternalServerError, ErrorResource.ExceptionMsg);
             }
         }
         

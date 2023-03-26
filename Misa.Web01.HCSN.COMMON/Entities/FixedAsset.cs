@@ -22,7 +22,7 @@ namespace MISA.WEB01.HCSN.Common.entities
         /// Id tài sản
         /// </summary>
         [Key]
-        
+
         [Required]
         public Guid fixed_asset_id { get; set; }
 
@@ -62,13 +62,13 @@ namespace MISA.WEB01.HCSN.Common.entities
         /// <summary>
         ///mã loại tài sản
         /// </summary>
-        
+
         [Required]
         public string fixed_asset_category_code { get; set; }
         /// <summary>
         /// tên loại tài sản
         /// </summary>
-        
+
         [Required]
         public string fixed_asset_category_name { get; set; }
         /// <summary>
@@ -81,7 +81,7 @@ namespace MISA.WEB01.HCSN.Common.entities
         /// nguyên giá
         /// </summary>
         [Required]
-        
+
         [Range(0, 10000000000)]
         public int cost { get; set; }
         /// <summary>
@@ -131,7 +131,7 @@ namespace MISA.WEB01.HCSN.Common.entities
         /// </summary>
         public DateTime? modified_date { get; set; }
 
-
+        public int? impoverishment {get;set;}
 
     }
 }

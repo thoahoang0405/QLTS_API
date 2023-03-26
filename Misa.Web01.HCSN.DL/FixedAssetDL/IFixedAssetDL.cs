@@ -12,8 +12,23 @@ namespace Misa.Web01.HCSN.DL
 {
     public interface IFixedAssetDL:IBaseDL<FixedAsset>
     {
-       
-        public PagingData<FixedAsset> FilterFixedAsset(string? keyword, int? pageSize, string? departmentID, string? fixedAssetCategoryID, int? pageNumber);
+
+        /// <summary>
+        /// Hàm lấy dữ liệu phân trang 
+        /// </summary>
+        /// <param name="keyword"></param>
+        /// <param name="pageSize"></param>
+        /// <param name="departmentID"></param>
+        /// <param name="fixedAssetCategoryID"></param>
+        /// <param name="pageNumber"></param>
+        /// <returns></returns>
+        /// CreatedBy: HTTHOA(10/03/2022)
+        public PagingData<FixedAsset> FilterFixedAsset(string? keyword, int? pageSize, Guid? departmentID, Guid? fixedAssetCategoryID, int? pageNumber);
+        /// <summary>
+        /// xóa nhiều bản ghi
+        /// </summary>
+        /// <param name="listId"></param>
+        /// <returns></returns>
         public int DeleteMultiple(List<Guid> listId);
     }
 }

@@ -44,6 +44,7 @@ namespace Misa.Web01.HCSN.BL
         /// CreatedBy: HTTHOA(17/03/2023)
         public int UpdateRecord(T entity, Guid id)
         {
+            Validate(entity);
             return _baseDL.UpdateRecord(entity, id);
         }
         /// <summary>
@@ -79,7 +80,7 @@ namespace Misa.Web01.HCSN.BL
 
 
         /// <summary>
-        ///  lấy mã nhân viên mới
+        ///  lấy mã mới
         /// </summary>
         /// <param name=""></param>
         /// <returns></returns>
@@ -88,7 +89,11 @@ namespace Misa.Web01.HCSN.BL
         {
             return _baseDL.GetNewCode();
         }
-       
+       /// <summary>
+       /// hàm validate
+       /// </summary>
+       /// <param name="record"></param>
+       /// <exception cref="ExceptionService"></exception>
         public virtual void Validate(T record)
         {
 
@@ -102,7 +107,7 @@ namespace Misa.Web01.HCSN.BL
             // duyệt để validate theo từng property
             foreach (var property in properties)
             {
-                var errorMsg = new List<String>(); // tạo biến để lưu lại lỗi theo từng property
+                var errorMsg = new List<string>(); // tạo biến để lưu lại lỗi theo từng property
 
                 var value = (property.GetValue(record, null) ?? string.Empty).ToString(); // lấy giá trị property
 
@@ -121,7 +126,7 @@ namespace Misa.Web01.HCSN.BL
 
                         }
                     }
-                    // check độ dài
+                    // check độ dài chỗ nào có (attrName == "StringLengthAttribute" thì check
                     if (attrName == "StringLengthAttribute" && !string.IsNullOrEmpty(value))
                     {
                         int max = Int32.Parse(attr.GetType().GetProperty("MaximumLength").GetValue(attr, null).ToString());

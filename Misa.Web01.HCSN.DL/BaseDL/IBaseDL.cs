@@ -59,7 +59,7 @@ namespace Misa.Web01.HCSN.BL
         /// <summary>
         ///check mã code
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="record"></param>
         /// <returns></returns>
         /// CreatedBy: HTTHOA(20/03/2023)
         public bool CheckDuplicateCode(T record);

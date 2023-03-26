@@ -17,10 +17,15 @@
         /// CreatedBy:HTTHOA(16/08/2022)
 
         public long TotalRecords { get; set; }
+        public long TotalImprover { get; set; }
+        public long TotalQuantity { get; set; }
+        public long TotalCost { get; set; }
+      
         /// <summary>
         /// Tổng số trang
         /// </summary>
         /// CreatedBy:HTTHOA(16/08/2022)
         public int TotalPages { get; set; }
+        
     }
 }
