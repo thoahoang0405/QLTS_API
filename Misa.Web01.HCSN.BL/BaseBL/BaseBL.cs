@@ -1,4 +1,6 @@
 ﻿using Misa.Web01.HCSN.BL;
+using Misa.Web01.HCSN.COMMON;
+using Misa.Web01.HCSN.COMMON.Resource;
 using MISA.WEB01.HCSN.COMMON;
 using MISA.WEB01.HCSN.COMMON.Utilities;
 using System;
@@ -12,17 +14,17 @@ namespace Misa.Web01.HCSN.BL
     public class BaseBL<T> : IBaseBL<T>
     {
         #region Field
-        private IBaseDL<T>  _baseDL;
+        private IBaseDL<T> _baseDL;
         #endregion
 
         #region contructor
+
         public BaseBL(IBaseDL<T> baseDL)
         {
             _baseDL = baseDL;
         }
         #endregion
-        protected List<string> listErrorMsgs = new List<string>();
-        protected int devCode;
+        #region method
         /// <summary>
         /// API thêm mới bản ghi
         /// </summary>
@@ -36,7 +38,8 @@ namespace Misa.Web01.HCSN.BL
             return _baseDL.InsertRecord(record);
 
         }
-       
+
+
         /// sửa 1  bản ghi
         /// </summary>
         /// <param name="entity"></param>
@@ -89,19 +92,20 @@ namespace Misa.Web01.HCSN.BL
         {
             return _baseDL.GetNewCode();
         }
-       /// <summary>
-       /// hàm validate
-       /// </summary>
-       /// <param name="record"></param>
-       /// <exception cref="ExceptionService"></exception>
+        /// <summary>
+        /// hàm validate
+        /// </summary>
+        /// <param name="record"></param>
+        /// <exception cref="ExceptionService"></exception>
         public virtual void Validate(T record)
         {
 
             // lấy danh sách property
-            string className = EntityUtilities.GetTableName<T>();
+            string className = typeof(T).Name;
             var properties = typeof(T).GetProperties();
 
             // tạo dictionerry để lưu lại lỗi
+
             var errorsData = new Dictionary<string, object>();
 
             // duyệt để validate theo từng property
@@ -122,11 +126,11 @@ namespace Misa.Web01.HCSN.BL
                     {
                         if (string.IsNullOrEmpty(value))
                         {
-                            errorMsg.Add($"{property.Name} {ErrorResource.Required}");
+                            errorMsg.Add($"{MISAResource.GetResource(property.Name)} {ErrorResource.Required}");
 
                         }
                     }
-                    // check độ dài chỗ nào có (attrName == "StringLengthAttribute" thì check
+                    // check độ dài
                     if (attrName == "StringLengthAttribute" && !string.IsNullOrEmpty(value))
                     {
                         int max = Int32.Parse(attr.GetType().GetProperty("MaximumLength").GetValue(attr, null).ToString());
@@ -134,7 +138,7 @@ namespace Misa.Web01.HCSN.BL
 
                         if (value.Length > max || value.Length < min)
                         {
-                            errorMsg.Add($"{property.Name} {ErrorResource.StringLength} {min} đến {max}!");
+                            errorMsg.Add($"{MISAResource.GetResource(property.Name)} {ErrorResource.MaxLength} {min} đến {max}!");
                         }
 
                     }
@@ -147,7 +151,7 @@ namespace Misa.Web01.HCSN.BL
 
                         if (valueToInt > max || valueToInt <= min)
                         {
-                            errorMsg.Add($"{property.Name} {ErrorResource.Range} {min} đến {max}!");
+                            errorMsg.Add($"{MISAResource.GetResource(property.Name)} {ErrorResource.Range} {min} đến {max}!");
                         }
 
                     }
@@ -157,9 +161,9 @@ namespace Misa.Web01.HCSN.BL
 
                         if (!_baseDL.CheckDuplicateCode(record))
                         {
-                            errorMsg.Add($"{property.Name} {ErrorResource.DuplicateKey}");
-                            errorsData.Add($"{className}Code", errorMsg);
-                            throw new ExceptionService(ErrorResource.ValidateFail, errorsData, MISAErrorCode.DuplicateCode);
+                            errorMsg.Add($"{MISAResource.GetResource(property.Name)} {ErrorResource.DuplicateKey}");
+                            errorsData.Add(property.Name,errorMsg);
+                            throw new ErrorService(ErrorResource.ValidateFail, errorsData, MISAErrorCode.DuplicateCode);
                         }
                     }
 
@@ -174,9 +178,10 @@ namespace Misa.Web01.HCSN.BL
 
             if (errorsData.Count > 0)
             {
-                throw new ExceptionService(ErrorResource.ValidateFail, errorsData, MISAErrorCode.Validate);
+                throw new ErrorService(ErrorResource.ValidateFail, errorsData, MISAErrorCode.Validate);
             }
 
         }
+        #endregion
     }
 }

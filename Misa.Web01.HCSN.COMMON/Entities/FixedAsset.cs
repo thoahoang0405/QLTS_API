@@ -32,25 +32,29 @@ namespace MISA.WEB01.HCSN.Common.entities
 
         [Required]
         [DuplicateAttribute]
+        [StringLength(7, MinimumLength=7)]
         public string fixed_asset_code { get; set; }
 
         /// <summary>
         /// Tên nhân viên
         /// </summary>
         [Required]
+       
         public string fixed_asset_name { get; set; }
-
+        /// <summary>
+        /// id phòng ban
+        /// </summary>
         [Required]
         public Guid department_id { get; set; }
         /// <summary>
-        /// tên đơn vị
+        /// tên phòng ban
         /// </summary>
-        [Required]
+        
         public string department_name { get; set; }
 
 
         /// <summary>
-        /// mã đơn vị
+        /// mã phòng ban
         /// </summary>
         [Required]
         public string department_code { get; set; }
@@ -63,7 +67,7 @@ namespace MISA.WEB01.HCSN.Common.entities
         ///mã loại tài sản
         /// </summary>
 
-        [Required]
+      
         public string fixed_asset_category_code { get; set; }
         /// <summary>
         /// tên loại tài sản
@@ -130,9 +134,12 @@ namespace MISA.WEB01.HCSN.Common.entities
         /// ngày sửa
         /// </summary>
         public DateTime? modified_date { get; set; }
-
-        public int? impoverishment {get;set;}
-
+        /// <summary>
+        /// hao mòn
+        /// </summary>
+        public decimal? impoverishment { get; set; } 
+     
+        public string? total_cost { get; set; }
     }
 }
 

@@ -8,14 +8,14 @@ using System.Threading.Tasks;
 
 namespace MISA.WEB01.HCSN.COMMON
 {
-    public class ExceptionService : Exception
+    public class ErrorService : Exception
     {
         public string ErrorMessage { get; set; }
         public IDictionary Errors;
         public MISAErrorCode ErrorCode = MISAErrorCode.Exception; 
 
 
-        public ExceptionService()
+        public ErrorService()
         {
         }
         /// <summary>
@@ -25,7 +25,7 @@ namespace MISA.WEB01.HCSN.COMMON
         /// <param name="errors"></param>
         /// <param name="errorCode"></param>
         ///  CreatedBy: HTTHOA(16/03/2023)
-        public ExceptionService(string errorMessage, IDictionary errors, MISAErrorCode errorCode)
+        public ErrorService(string errorMessage, IDictionary errors, MISAErrorCode errorCode)
         {
             ErrorMessage = errorMessage;
             Errors = errors;

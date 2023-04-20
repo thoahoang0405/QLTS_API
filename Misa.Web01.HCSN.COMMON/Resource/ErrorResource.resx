@@ -129,14 +129,11 @@
   <data name="Format" xml:space="preserve">
     <value>sai format</value>
   </data>
-  <data name="ListPropertyNotNull" xml:space="preserve">
-    <value>Chứng từ phải có ít nhất 1 tài sản!</value>
-  </data>
   <data name="Max" xml:space="preserve">
     <value>giá trị quá lớn</value>
   </data>
-  <data name="MaxDate" xml:space="preserve">
-    <value>ngày lớn hơn ngày hiện tại</value>
+  <data name="MaxLength" xml:space="preserve">
+    <value>phải có độ dài là</value>
   </data>
   <data name="Min" xml:space="preserve">
     <value>giá trị quá nhỏ</value>
@@ -162,13 +159,7 @@
   <data name="ServerExceptionDev" xml:space="preserve">
     <value>Lỗi server!</value>
   </data>
-  <data name="StringLength" xml:space="preserve">
-    <value>phải có độ dài trong khoảng </value>
-  </data>
   <data name="ValidateFail" xml:space="preserve">
     <value>Dữ liệu không hợp lệ, vui lòng kiểm tra lại dữ liệu đầu vào!</value>
-  </data>
-  <data name="ValidateFailDev" xml:space="preserve">
-    <value>Dữ liệu không hợp lệ!</value>
   </data>
 </root>

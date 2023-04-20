@@ -8,8 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace MISA.WEB01.HCSN.COMMON
-{
+namespace Misa.Web01.HCSN.COMMON.Resource {
     using System;
     
     
@@ -98,15 +97,6 @@ namespace MISA.WEB01.HCSN.COMMON
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Chứng từ phải có ít nhất 1 tài sản!.
-        /// </summary>
-        public static string ListPropertyNotNull {
-            get {
-                return ResourceManager.GetString("ListPropertyNotNull", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to giá trị quá lớn.
         /// </summary>
         public static string Max {
@@ -116,11 +106,11 @@ namespace MISA.WEB01.HCSN.COMMON
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ngày lớn hơn ngày hiện tại.
+        ///   Looks up a localized string similar to phải có độ dài là.
         /// </summary>
-        public static string MaxDate {
+        public static string MaxLength {
             get {
-                return ResourceManager.GetString("MaxDate", resourceCulture);
+                return ResourceManager.GetString("MaxLength", resourceCulture);
             }
         }
         
@@ -197,29 +187,11 @@ namespace MISA.WEB01.HCSN.COMMON
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to phải có độ dài trong khoảng .
-        /// </summary>
-        public static string StringLength {
-            get {
-                return ResourceManager.GetString("StringLength", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Dữ liệu không hợp lệ, vui lòng kiểm tra lại dữ liệu đầu vào!.
         /// </summary>
         public static string ValidateFail {
             get {
                 return ResourceManager.GetString("ValidateFail", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Dữ liệu không hợp lệ!.
-        /// </summary>
-        public static string ValidateFailDev {
-            get {
-                return ResourceManager.GetString("ValidateFailDev", resourceCulture);
             }
         }
     }

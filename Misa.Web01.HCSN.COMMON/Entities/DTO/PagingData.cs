@@ -17,6 +17,10 @@
         /// CreatedBy:HTTHOA(16/08/2022)
 
         public long TotalRecords { get; set; }
+
+        /// <summary>
+        /// giá trị hao mòn lũy kế
+        /// </summary>
         public long TotalImprover { get; set; }
         public long TotalQuantity { get; set; }
         public long TotalCost { get; set; }

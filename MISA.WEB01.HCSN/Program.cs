@@ -4,6 +4,10 @@ using Misa.Web01.HCSN.DL;
 using MISA.WEB01.HCSN.Common.entities;
 using Misa.Web01.HCSN.COMMON.entities;
 using Misa.Web01.HCSN.BL.BaseBL;
+using Misa.Web01.HCSN.BL.FixedAssetIncrementBL;
+using Misa.Web01.HCSN.DL.FixedAssetIncrementDL;
+using Misa.Web01.HCSN.BL.FixedAssetIncrementDetailBL;
+using Misa.Web01.HCSN.DL.FixedAssetIncrementDetailDL;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,6 +19,10 @@ builder.Services.AddScoped<IFixedAssetCategoryBL, FixedAssetCategoryBL>();
 builder.Services.AddScoped<IFixedAssetCategoryDL, FixedAssetCategoryDL>();
 builder.Services.AddScoped<IFixedAssetBL, FixedAssetBL>();
 builder.Services.AddScoped<IFixedAssetDL, FixedAssetDL>();
+builder.Services.AddScoped<IFixedAssetIncrementBL, FixedAssetIncrementBL>();
+builder.Services.AddScoped<IFixedAssetIncrementDL, FixedAssetIncrementDL>();
+builder.Services.AddScoped<IFixedAssetIncrementDetailBL, FixedAssetIncrementDetailBL>();
+builder.Services.AddScoped<IFixedAssetIncrementDetailDL, FixedAssetIncrementDetailDL>();
 builder.Services.AddScoped<IDepartmentsBL, DepartmentsBL>();
 builder.Services.AddScoped<IDepartmentsDL, DepartmentsDL>();
 builder.Services.AddScoped(typeof(IBaseDL<>), typeof(BaseDL<>));

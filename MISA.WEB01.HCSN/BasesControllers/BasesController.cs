@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Misa.Web01.HCSN.BL;
 using Misa.Web01.HCSN.COMMON;
+using Misa.Web01.HCSN.COMMON.Resource;
 using MISA.WEB01.HCSN.COMMON;
 using MySql.Data.MySqlClient;
 using System.Reflection;
@@ -30,6 +31,8 @@ namespace MISA.WEB01.HCSN.BaseControllers
 
 
         #endregion
+
+        #region Method
         ///  <summary>
         /// thêm mới bản ghi
         /// </summary>
@@ -55,13 +58,17 @@ namespace MISA.WEB01.HCSN.BaseControllers
             }
 
 
-            catch (ExceptionService ex)
+            catch (ErrorService ex)
             {
                 if (ex.ErrorCode == MISAErrorCode.DuplicateCode)
                 {
                     return StatusCode(StatusCodes.Status400BadRequest, HandleError.GenerateDuplicateErrorResult(ex));
                 }
                 return StatusCode(StatusCodes.Status400BadRequest, HandleError.GenerateValidateErrorResult(ex));
+            }
+            catch (Exception e)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ErrorResource.ServerException);
             }
         }
         /// <summary>
@@ -84,9 +91,9 @@ namespace MISA.WEB01.HCSN.BaseControllers
                 {
                     return StatusCode(StatusCodes.Status200OK, id);
                 }
-                return StatusCode(StatusCodes.Status500InternalServerError, HandleError.GenerateServerErrorResult());
+                return StatusCode(StatusCodes.Status400BadRequest, ErrorResource.NotFound);
             }
-            catch (ExceptionService ex)
+            catch (ErrorService ex)
             {
                 if (ex.ErrorCode == MISAErrorCode.DuplicateCode)
                 {
@@ -94,10 +101,12 @@ namespace MISA.WEB01.HCSN.BaseControllers
                 }
                 return StatusCode(StatusCodes.Status400BadRequest, HandleError.GenerateValidateErrorResult(ex));
             }
-
+            catch (Exception e)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ErrorResource.ServerException);
+            }
 
         }
-
 
         /// <summary>
         /// Lấy tất cả bản ghi
@@ -105,7 +114,6 @@ namespace MISA.WEB01.HCSN.BaseControllers
         /// <param name=""></param>
         /// <returns>về status500 hoặc status400 nếu lỗi ; return về status200 nếu thành công</returns>
         /// CreatedBy: HTTHOA(15/03/2023)
-
         [HttpGet]
         public IActionResult GetAllRecords()
         {
@@ -126,10 +134,9 @@ namespace MISA.WEB01.HCSN.BaseControllers
             }
             catch (Exception ex)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, ErrorResource.ExceptionMsg);
+                return StatusCode(StatusCodes.Status500InternalServerError, ErrorResource.ServerException);
             }
         }
-
 
         /// <summary>
         /// Lấy bản ghi theo ID
@@ -137,7 +144,6 @@ namespace MISA.WEB01.HCSN.BaseControllers
         /// <param name="GetRecordID"></param>
         ///<returns>về status500 hoặc status400 nếu lỗi ; return về status200 nếu thành công </returns>
         /// CreatedBy: HTTHOA(16/03/2023)
-
         [HttpGet("{id}")]
         public IActionResult GetRecordID([FromRoute] Guid id)
         {
@@ -158,21 +164,20 @@ namespace MISA.WEB01.HCSN.BaseControllers
             catch (Exception ex)
             {
 
-                return StatusCode(StatusCodes.Status500InternalServerError, ErrorResource.ExceptionMsg);
+                return StatusCode(StatusCodes.Status500InternalServerError, ErrorResource.ServerException);
             }
 
 
 
         }
+
         /// <summary>
         /// Lấy mã  mới
         /// </summary>
         /// <param name=""></param>
         /// ><returns>về status500 hoặc status400 nếu lỗi ; return về status200 nếu thành công </returns>
         /// CreatedBy: HTTHOA(16/03/2023)
-
         [HttpGet("NewCode")]
-
         public IActionResult GetNewCode()
         {
             try
@@ -185,20 +190,17 @@ namespace MISA.WEB01.HCSN.BaseControllers
             catch (Exception ex)
             {
 
-                return StatusCode(StatusCodes.Status500InternalServerError, ErrorResource.ExceptionMsg);
+                return StatusCode(StatusCodes.Status500InternalServerError, ErrorResource.ServerException);
             }
         }
+
         /// <summary>
         /// API xóa 1 bản ghi
         /// </summary>
         /// <param name="employeeID"></param>
         /// <returns>về status500 hoặc status400 nếu lỗi ; return về status200 nếu thành công</returns>
         /// CreatedBy: HTTHOA(16/03/2023)
-      
-
         [HttpDelete("{id}")]
-
-
         public IActionResult DeleteEmployeeByID([FromRoute] Guid id)
         {
             try
@@ -219,9 +221,10 @@ namespace MISA.WEB01.HCSN.BaseControllers
             }
             catch (Exception ex)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, ErrorResource.ExceptionMsg);
+                return StatusCode(StatusCodes.Status500InternalServerError, ErrorResource.ServerException);
             }
         }
-        
+
+        #endregion
     }
 }

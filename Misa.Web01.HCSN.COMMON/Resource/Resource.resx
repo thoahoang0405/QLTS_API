@@ -117,6 +117,12 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="cost" xml:space="preserve">
+    <value>Nguyên giá</value>
+  </data>
+  <data name="department_code" xml:space="preserve">
+    <value>Mã phòng ban</value>
+  </data>
   <data name="Error_BadRequest" xml:space="preserve">
     <value>Dữ liệu đầu vào không đúng</value>
   </data>
@@ -128,5 +134,32 @@
   </data>
   <data name="Error_NotFound" xml:space="preserve">
     <value>Không tìm thấy kết quả</value>
+  </data>
+  <data name="fixed_asset_category_code" xml:space="preserve">
+    <value>Mã loại tài sản</value>
+  </data>
+  <data name="fixed_asset_code" xml:space="preserve">
+    <value>Mã tài sản</value>
+  </data>
+  <data name="fixed_asset_increment_date" xml:space="preserve">
+    <value>Ngày ghi tăng</value>
+  </data>
+  <data name="fixed_asset_name" xml:space="preserve">
+    <value>Tên tài sản</value>
+  </data>
+  <data name="life_time" xml:space="preserve">
+    <value>Năm sử dụng</value>
+  </data>
+  <data name="quantity" xml:space="preserve">
+    <value>Số lượng</value>
+  </data>
+  <data name="start_use_date" xml:space="preserve">
+    <value>Ngày sử dụng</value>
+  </data>
+  <data name="voucher_code" xml:space="preserve">
+    <value>Mã chứng từ</value>
+  </data>
+  <data name="voucher_date" xml:space="preserve">
+    <value>Ngày chứng từ</value>
   </data>
 </root>

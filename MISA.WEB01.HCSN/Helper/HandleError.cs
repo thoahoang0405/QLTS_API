@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Misa.Web01.HCSN.COMMON.Resource;
 using MISA.WEB01.HCSN.COMMON;
 using MySqlConnector;
 using System.Diagnostics;
@@ -55,7 +56,7 @@ namespace MISA.WEB01.HCSN
 
         }
 
-        public static ErrorResult? GenerateValidateErrorResult(ExceptionService ex)
+        public static ErrorResult? GenerateValidateErrorResult(ErrorService ex)
         {
             var errorResult = new ErrorResult(
                 ex.ErrorCode,
@@ -66,7 +67,7 @@ namespace MISA.WEB01.HCSN
             return errorResult;
         }
 
-        public static ErrorResult? GenerateDuplicateErrorResult(ExceptionService ex)
+        public static ErrorResult? GenerateDuplicateErrorResult(ErrorService ex)
         {
             var errorResult = new ErrorResult(
                 ex.ErrorCode,
