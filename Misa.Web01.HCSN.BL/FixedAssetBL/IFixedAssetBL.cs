@@ -50,5 +50,13 @@ namespace Misa.Web01.HCSN.BL
             );
        public MemoryStream ExportExcel(string? keyword, Guid? departmentID, Guid? fixedAssetCategoryID);
         public int UpdateFixedAsset(List<Guid> listId, int active);
+        public PagingData<FixedAsset> FilterChoose(
+         string? keyword,
+         int? pageSize,
+         Guid? voucherId,
+         int? pageNumber,
+         int? active,
+         List<Guid> listId
+         );
     }
 }

@@ -23,8 +23,6 @@ namespace Misa.Web01.HCSN.DL
         readonly string _connectionDB = DatabaseContext.ConnectionString;
 
         #endregion
-
-
         #region method
         /// <summary>
         /// Hàm lấy dữ liệu phân trang 
@@ -332,6 +330,129 @@ namespace Misa.Web01.HCSN.DL
                 return numberOfAffectedRows;
 
             }
+        }
+        public PagingData<FixedAsset> FilterChoose(
+          string? keyword,
+          int? pageSize,
+          Guid? voucherId,
+          int? pageNumber,
+          int? active,
+          List<Guid>? listId
+          )
+        {
+
+            string storedProcedureName = "Proc_fixed_asset_choose_GetPaging";
+
+            var orConditions = new List<string>();
+            var andConditions = new List<string>();
+            var requiredConditions= new List<string>();
+            string whereClause = "";
+            requiredConditions.Add($"active={active}");
+            if (voucherId != null)
+            {
+                requiredConditions.Add($"voucher_id='{voucherId}'");
+                whereClause= string.Join(" OR ", requiredConditions);
+            }
+            else
+            {
+                whereClause = $"active={active}";
+            }
+            if (keyword != null)
+            {
+                orConditions.Add($"fixed_asset_code LIKE '%{keyword}%'");
+                orConditions.Add($"fixed_asset_name LIKE '%{keyword}%'");
+
+            }
+           
+           
+            var listIdToString = "";
+            
+            if (listId.Count > 0)
+            {
+                listIdToString = $"('{string.Join("','", listId)}')";
+                andConditions.Add($"fixed_asset_id NOT IN {listIdToString}");
+            }
+            string condition = "";
+
+            if (orConditions.Count() > 0)
+            {
+                condition = string.Join(" OR ", orConditions);
+                if (andConditions.Count() > 0)
+                {
+                    condition = "(" + condition + ") AND " + String.Join(" AND ", andConditions);
+                }
+            }
+            else if (andConditions.Count() > 0)
+            {
+                condition = string.Join(" AND ", andConditions);
+                if (orConditions.Count() > 0)
+                {
+                    condition = "(" + condition + ") AND " + String.Join(" AND ", andConditions);
+
+                }
+            }
+            else
+            {
+                condition = "";
+            }
+            if(condition != "")
+            {
+                whereClause = "(" + whereClause + ") AND ("+ condition + ")";
+            }
+           
+            
+            var parameters = new DynamicParameters();
+            parameters.Add("v_Sort", "modified_date DESC");
+
+            parameters.Add("v_Limit", pageSize);
+            parameters.Add("v_Offset", (pageNumber - 1) * pageSize);
+            parameters.Add("v_Where", whereClause);
+            using (var sqlConnection = new MySqlConnection(_connectionDB))
+            {
+                // Thực hiện gọi vào DB để chạy stored procedure với tham số đầu vào ở trên
+                var multipleResults = sqlConnection.QueryMultiple(storedProcedureName, parameters, commandType: System.Data.CommandType.StoredProcedure);
+                if (multipleResults != null)
+                {
+                    var fixedAssets = multipleResults.Read<FixedAsset>().ToList();
+                    var TotalRecords = multipleResults.Read<long>().Single();
+                    var TotalQuantity = multipleResults.Read<long>().Single();
+                    var TotalCosts = multipleResults.Read<long>().Single();
+                    var TotalImprover = multipleResults.Read<long>().Single();
+
+
+                    int TotalPagesAll = 1;
+
+                    if (TotalRecords >= 0 && pageSize > 0)
+                    {
+                        TotalPagesAll = (int)(decimal)(TotalRecords / pageSize);
+                        if (TotalRecords % pageSize != 0)
+                        {
+                            TotalPagesAll = TotalPagesAll + 1;
+                        }
+                        if (TotalRecords < pageSize)
+                        {
+                            pageNumber = 1;
+                            TotalPagesAll = 1;
+                        }
+                    }
+
+
+                    return new PagingData<FixedAsset>()
+                    {
+                        Data = fixedAssets,
+                        TotalRecords = TotalRecords,
+                        TotalImprover = TotalImprover,
+                        TotalQuantity = TotalQuantity,
+                        TotalCost = TotalCosts,
+
+
+                        TotalPages = TotalPagesAll
+
+                    };
+                }
+            }
+            return null;
+
         }
         #endregion
 

@@ -173,6 +173,17 @@ namespace Misa.Web01.HCSN.BL
             return _fixedAssetDL.UpdateFixedAsset(listId, active);
 
         }
+        public PagingData<FixedAsset> FilterChoose(
+         string? keyword,
+         int? pageSize,
+         Guid? voucherId,
+         int? pageNumber,
+         int? active,
+         List<Guid> listId
+         )
+        {
+            return _fixedAssetDL.FilterChoose(keyword,pageSize, voucherId, pageNumber,active, listId);
+        }
         #endregion
     }
 }

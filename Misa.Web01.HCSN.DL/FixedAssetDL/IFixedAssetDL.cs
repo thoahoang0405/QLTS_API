@@ -56,6 +56,14 @@ namespace Misa.Web01.HCSN.DL
 
             );
         public int UpdateFixedAsset(List<Guid> listId, int active);
+        public PagingData<FixedAsset> FilterChoose(
+         string? keyword,
+         int? pageSize,
+         Guid? voucherId,
+         int? pageNumber,
+         int? active,
+         List<Guid> listId
+         );
         #endregion
     }
 }

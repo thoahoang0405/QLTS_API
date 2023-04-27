@@ -76,7 +76,7 @@ namespace Misa.Web01.HCSN.BL.BaseBL
         /// <returns></returns>
         /// CreatedBy: HTTHOA(16/03/2023)
 
-        public int UpdateRecord(T entity, Guid id)
+        public virtual int UpdateRecord(T entity, Guid id)
         {
             string tableName = EntityUtilities.GetTableName<T>();
             string storeProcedureName = $"Proc_{tableName}_Update";

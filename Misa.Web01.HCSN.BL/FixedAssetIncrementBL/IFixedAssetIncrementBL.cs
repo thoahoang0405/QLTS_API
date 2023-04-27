@@ -1,4 +1,5 @@
 ﻿using Misa.Web01.HCSN.COMMON.Entities;
+using Misa.Web01.HCSN.COMMON.Entities.DTO;
 using MISA.WEB01.HCSN.COMMON.Entities;
 using System;
 using System.Collections.Generic;
@@ -16,5 +17,8 @@ namespace Misa.Web01.HCSN.BL.FixedAssetIncrementBL
         int? pageNumber
         );
         public int InsertIncrement(FixedAssetIncrement paramsInsert);
+        public int UpdateIncrement(FixedAssetIncrement increment, Guid incrementID);
+        public int DeleteIncrementID(List<Guid>? listFixedAssetID, Guid id);
+        public int DeleteMultipleIncrement(DeleteMultipleIncrement listId);
     }
 }

@@ -140,6 +140,8 @@ namespace MISA.WEB01.HCSN.Common.entities
         public decimal? impoverishment { get; set; } 
      
         public string? total_cost { get; set; }
+
+        public Guid? voucher_id { get; set; }
     }
 }
 

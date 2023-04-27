@@ -133,6 +133,31 @@ namespace MISA.WEB01.HCSN.Controllers
             }
             return StatusCode(StatusCodes.Status400BadRequest, ErrorResource.NotFound);
         }
+        [HttpPost("FilterFixedAsetChoose")]
+        [SwaggerResponse(StatusCodes.Status200OK, type: typeof(PagingData<FixedAsset>))]
+        [SwaggerResponse(StatusCodes.Status400BadRequest)]
+        [SwaggerResponse(StatusCodes.Status500InternalServerError)]
+        public IActionResult FilterChoose(
+           [FromQuery] string? keyword,
+           [FromQuery] int? pageSize,
+           [FromQuery] Guid? voucherId,
+           [FromQuery] int pageNumber,
+           [FromQuery] int? active,
+           [FromBody] List<Guid> listId
+           )
+        {
+
+
+            var multipleResults = _fixedAssetBL.FilterChoose(keyword, pageSize, voucherId, pageNumber, active, listId);
+            if (multipleResults != null)
+            {
+                return StatusCode(StatusCodes.Status200OK, multipleResults);
+            }
+            else
+            {
+                return StatusCode(StatusCodes.Status400BadRequest, ErrorResource.NotFound);
+            }
+        }
         #endregion
     }
 }
