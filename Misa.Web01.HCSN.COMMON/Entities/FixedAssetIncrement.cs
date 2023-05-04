@@ -65,5 +65,6 @@ namespace Misa.Web01.HCSN.COMMON.Entities
         public DateTime? modified_date { get; set; }
 
         public List<Guid> listFixedAssetID { get; set; }
+        public List<Guid> listFixedAssetIdDelete { get; set; }
     }
 }

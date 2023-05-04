@@ -286,6 +286,23 @@ namespace Misa.Web01.HCSN.DL.FixedAssetIncrementDL
                         {
                             int detail = InsertIncrementDetail(increment.listFixedAssetID, increment.voucher_id, sqlConnection, trans);
                             int updatefixed = UpdateFixedAsset(increment.listFixedAssetID, 1, sqlConnection, trans);
+                            if (increment.listFixedAssetIdDelete.Count > 0)
+                            {
+                                int deleteDetail = DeleteMultipleIncrementDetail(increment.listFixedAssetIdDelete, sqlConnection, trans);
+
+                                int updatefixedDelete = UpdateFixedAsset(increment.listFixedAssetIdDelete, 0, sqlConnection, trans);
+                                if (updatefixed == 0 || deleteDetail == 0 || updatefixedDelete == 0 || detail == 0)
+                                {
+                                    trans.Rollback();
+                                    return 0;
+                                }
+                                else
+                                {
+                                    trans.Commit();
+
+                                    return 1;
+                                }
+                            }
                             if (updatefixed == 0 || detail == 0)
                             {
                                 trans.Rollback();
@@ -297,13 +314,34 @@ namespace Misa.Web01.HCSN.DL.FixedAssetIncrementDL
 
                                 return 1;
                             }
-
+                           
                         }
                         else
                         {
+                            if (increment.listFixedAssetIdDelete.Count > 0)
+                            {
+                                int deleteDetail = DeleteMultipleIncrementDetail(increment.listFixedAssetIdDelete, sqlConnection, trans);
+
+                                int updatefixedDelete = UpdateFixedAsset(increment.listFixedAssetIdDelete, 0, sqlConnection, trans);
+                                if ( deleteDetail == 0 || updatefixedDelete == 0 )
+                                {
+                                    trans.Rollback();
+                                    return 0;
+                                }
+                                else
+                                {
+                                    trans.Commit();
+
+                                    return 1;
+                                }
+                            }
+                            else
+                            { 
                             trans.Commit();
                             return numberOfAffectedRows;
+                            }
                         }
+                       
                     }
                     else
                     {
@@ -398,6 +436,34 @@ namespace Misa.Web01.HCSN.DL.FixedAssetIncrementDL
 
                 }
             }
+        }
+        public int DeleteMultipleIncrementDetail(List<Guid> listId, MySqlConnection sqlConnection, MySqlTransaction trans)
+        {
+            
+            // lấy procedure name
+            string procedureNameCommand = "Proc_fixed_asset_increment_detail_DeleteMultiple";
+
+
+            // tạo param
+            var parameters = new DynamicParameters();
+
+            var listIdToString = "";
+
+            if (listId == null || listId.Count == 0)
+            {
+                return 0;
+            }
+            listIdToString = $"('{string.Join("','", listId)}')";
+
+            parameters.Add("@v_ListId", listIdToString);
+            int result = 0;
+            result = sqlConnection.Execute(procedureNameCommand, parameters, commandType: System.Data.CommandType.StoredProcedure, transaction: trans);
+            if (result > 0)
+            {
+                return 1;
+            }
+            else { return 0; }
+
         }
         public override bool CheckDuplicateCode(FixedAssetIncrement record)
         {
