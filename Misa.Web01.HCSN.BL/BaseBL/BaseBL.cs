@@ -1,8 +1,10 @@
 ﻿using Misa.Web01.HCSN.BL;
 using Misa.Web01.HCSN.COMMON;
 using Misa.Web01.HCSN.COMMON.Resource;
+using MISA.WEB01.HCSN.Common.entities;
 using MISA.WEB01.HCSN.COMMON;
 using MISA.WEB01.HCSN.COMMON.Utilities;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -45,7 +47,7 @@ namespace Misa.Web01.HCSN.BL
         /// <param name="entity"></param>
         /// <returns></returns>
         /// CreatedBy: HTTHOA(17/03/2023)
-        public int UpdateRecord(T entity, Guid id)
+        public virtual int UpdateRecord(T entity, Guid id)
         {
             Validate(entity);
             return _baseDL.UpdateRecord(entity, id);
@@ -182,6 +184,7 @@ namespace Misa.Web01.HCSN.BL
             }
 
         }
+       
         #endregion
     }
 }

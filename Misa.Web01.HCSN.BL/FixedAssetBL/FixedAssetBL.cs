@@ -1,7 +1,12 @@
-﻿using Misa.Web01.HCSN.COMMON.Entities.DTO;
+﻿using Misa.Web01.HCSN.BL.BaseBL;
+using Misa.Web01.HCSN.COMMON;
+using Misa.Web01.HCSN.COMMON.Entities.DTO;
+using Misa.Web01.HCSN.COMMON.Resource;
 using Misa.Web01.HCSN.DL;
 using MISA.WEB01.HCSN.Common.entities;
+using MISA.WEB01.HCSN.COMMON;
 using MISA.WEB01.HCSN.COMMON.Entities;
+using Newtonsoft.Json;
 using OfficeOpenXml;
 using OfficeOpenXml.Style;
 using System;
@@ -54,8 +59,28 @@ namespace Misa.Web01.HCSN.BL
         /// <returns></returns>
         public int DeleteMultiple(List<Guid> listId)
         {
+            CheckAssetIncremented(listId);
             return _fixedAssetDL.DeleteMultiple(listId);
         }
+        public void CheckAssetIncremented(List<Guid> listId)
+        {
+            var errorMsg = new List<string>();
+            var errorsData = new Dictionary<string, object>();
+            if (!_fixedAssetDL.CheckAssetIncremented(listId))
+            {
+                errorMsg.Add($"Tài sản đã được ghi tăng");
+                errorsData.Add("active", errorMsg);
+                throw new ErrorService(ErrorResource.ValidateFail, errorsData, MISAErrorCode.Incremented);
+            }
+        }
+        /// <summary>
+        /// lấy phân trang xuất excel
+        /// </summary>
+        /// <param name="keyword"></param>
+        /// <param name="departmentID"></param>
+        /// <param name="fixedAssetCategoryID"></param>
+        /// <returns></returns>
+        /// CreatedBy: HTTHOA((9/5/2023)
         public PagingData<FixedAsset> FilterFixedAssetExcel(
             string? keyword,
 
@@ -183,6 +208,84 @@ namespace Misa.Web01.HCSN.BL
          )
         {
             return _fixedAssetDL.FilterChoose(keyword,pageSize, voucherId, pageNumber,active, listId);
+        }
+        public override int UpdateRecord(FixedAsset entity, Guid id)
+        {
+
+            Validate(entity);
+            ValidateCost(entity);
+            return base.UpdateRecord(entity, id);
+        }
+        /// <summary>
+        /// validate nguồn hình thành
+        /// </summary>
+        /// <param name="asset"></param>
+        /// <exception cref="ErrorService"></exception>
+        /// CreatedBy: HTTHOA((9/5/2023)
+        public virtual void ValidateCost(FixedAsset asset)
+        {
+          
+            // lấy danh sách property
+            string jsonString = asset.total_cost;
+            var errorsData = new Dictionary<string, object>();
+            var properties = typeof(Budget).GetProperties();
+            var errorMsg = new List<string>();
+            List<Budget> budgets = JsonConvert.DeserializeObject<List<Budget>>(jsonString);
+            var errorName= new List<string>();
+            var errorValue = new List<string>();
+            var errorDuplicate = new List<string>();
+            for (int i = 0; i < budgets.Count; i++)
+            {
+                if (budgets[i].budget_name == "")
+                {
+                    errorName.Add(Resource.required_source);
+                
+                }
+             
+                else
+                {
+                        for (int j = 0; j < i; j++)
+                        {
+                            if (budgets[i].budget_name == budgets[j].budget_name)
+                            {
+                                errorDuplicate.Add(Resource.duplicate_source);
+                               
+                            }
+                        }                    
+                }
+
+                if(budgets[i].mount == 0)
+                {
+                    errorValue.Add(Resource.required_value);
+                 
+                }
+               
+                // duyệt để validate theo từng property
+
+              
+            }
+            
+            if(errorName.Count> 0)
+            {
+                errorMsg.Add(Resource.required_source);
+                errorsData.Add(Resource.source, errorMsg);
+            }
+            if(errorValue.Count> 0)
+            {
+                //errorMsg.Add($"Giá trị không được trống");
+                errorsData.Add(Resource.value, errorValue[0]);
+            }
+            if (errorDuplicate.Count > 0)
+            {
+                errorMsg.Add(Resource.duplicate_source);
+                errorsData.Add(Resource.source, errorMsg);
+                throw new ErrorService(ErrorResource.ValidateFail, errorsData, MISAErrorCode.DuplicateSource);
+            }
+            if (errorsData.Count > 0)
+            {
+ 
+                throw new ErrorService(ErrorResource.ValidateFail, errorsData, MISAErrorCode.Validate);
+            }
         }
         #endregion
     }

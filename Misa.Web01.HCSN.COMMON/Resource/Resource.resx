@@ -123,6 +123,9 @@
   <data name="department_code" xml:space="preserve">
     <value>Mã phòng ban</value>
   </data>
+  <data name="duplicate_source" xml:space="preserve">
+    <value>Nguồn hình thành không được trùng</value>
+  </data>
   <data name="Error_BadRequest" xml:space="preserve">
     <value>Dữ liệu đầu vào không đúng</value>
   </data>
@@ -153,8 +156,20 @@
   <data name="quantity" xml:space="preserve">
     <value>Số lượng</value>
   </data>
+  <data name="required_source" xml:space="preserve">
+    <value>Nguồn hình thành không được trống</value>
+  </data>
+  <data name="required_value" xml:space="preserve">
+    <value>Giá trị không được trống</value>
+  </data>
+  <data name="source" xml:space="preserve">
+    <value>budget_name</value>
+  </data>
   <data name="start_use_date" xml:space="preserve">
     <value>Ngày sử dụng</value>
+  </data>
+  <data name="value" xml:space="preserve">
+    <value>mount</value>
   </data>
   <data name="voucher_code" xml:space="preserve">
     <value>Mã chứng từ</value>

@@ -79,6 +79,15 @@ namespace Misa.Web01.HCSN.COMMON.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Nguồn hình thành không được trùng.
+        /// </summary>
+        public static string duplicate_source {
+            get {
+                return ResourceManager.GetString("duplicate_source", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Dữ liệu đầu vào không đúng.
         /// </summary>
         public static string Error_BadRequest {
@@ -169,11 +178,47 @@ namespace Misa.Web01.HCSN.COMMON.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Nguồn hình thành không được trống.
+        /// </summary>
+        public static string required_source {
+            get {
+                return ResourceManager.GetString("required_source", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Giá trị không được trống.
+        /// </summary>
+        public static string required_value {
+            get {
+                return ResourceManager.GetString("required_value", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to budget_name.
+        /// </summary>
+        public static string source {
+            get {
+                return ResourceManager.GetString("source", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Ngày sử dụng.
         /// </summary>
         public static string start_use_date {
             get {
                 return ResourceManager.GetString("start_use_date", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to mount.
+        /// </summary>
+        public static string value {
+            get {
+                return ResourceManager.GetString("value", resourceCulture);
             }
         }
         

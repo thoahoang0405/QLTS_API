@@ -32,14 +32,14 @@ namespace MISA.WEB01.HCSN.Common.entities
 
         [Required]
         [DuplicateAttribute]
-        [StringLength(7, MinimumLength=7)]
+        [StringLength(7, MinimumLength = 7)]
         public string fixed_asset_code { get; set; }
 
         /// <summary>
         /// Tên nhân viên
         /// </summary>
         [Required]
-       
+
         public string fixed_asset_name { get; set; }
         /// <summary>
         /// id phòng ban
@@ -49,7 +49,7 @@ namespace MISA.WEB01.HCSN.Common.entities
         /// <summary>
         /// tên phòng ban
         /// </summary>
-        
+
         public string department_name { get; set; }
 
 
@@ -67,7 +67,7 @@ namespace MISA.WEB01.HCSN.Common.entities
         ///mã loại tài sản
         /// </summary>
 
-      
+
         public string fixed_asset_category_code { get; set; }
         /// <summary>
         /// tên loại tài sản
@@ -118,6 +118,7 @@ namespace MISA.WEB01.HCSN.Common.entities
         ///  năm sd (2023)
         /// </summary>
         public int production_year { get; set; }
+        public int active { get; set; }
         /// <summary>
         /// người tạo
         /// </summary>
@@ -137,11 +138,16 @@ namespace MISA.WEB01.HCSN.Common.entities
         /// <summary>
         /// hao mòn
         /// </summary>
-        public decimal? impoverishment { get; set; } 
-     
+        public decimal? impoverishment { get; set; }
+
         public string? total_cost { get; set; }
 
         public Guid? voucher_id { get; set; }
+    }
+    public class Budget{
+        public string budget_name { get; set; }
+        public decimal mount { get; set; }
+
     }
 }
 

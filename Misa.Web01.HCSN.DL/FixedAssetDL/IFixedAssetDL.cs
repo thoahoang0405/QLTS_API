@@ -48,6 +48,7 @@ namespace Misa.Web01.HCSN.DL
         /// <param name="pageNumber"></param>
         /// <returns></returns>
         /// CreatedBy: HTTHOA(31/03/2022)
+        public bool CheckAssetIncremented(List<Guid> listId);
         public PagingData<FixedAsset> FilterFixedAssetExcel(
             string? keyword,
 

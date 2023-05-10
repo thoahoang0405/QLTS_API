@@ -35,5 +35,13 @@ namespace MISA.WEB01.HCSN.COMMON
         /// trùng mã 
         /// </summary>
         DuplicateCode= 5,
+        /// <summary>
+        /// trùng nguồn hình thành
+        /// </summary>
+        DuplicateSource=6,
+        /// <summary>
+        /// đã được chứng từ
+        /// </summary>
+        Incremented=7,
     }
 }

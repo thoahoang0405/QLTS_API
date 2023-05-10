@@ -7,6 +7,7 @@ using MISA.WEB01.HCSN.Common.entities;
 using MISA.WEB01.HCSN.COMMON.Entities;
 using MISA.WEB01.HCSN.COMMON.Utilities;
 using MySql.Data.MySqlClient;
+using MySqlX.XDevAPI.Common;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -209,7 +210,37 @@ namespace Misa.Web01.HCSN.DL
             }
         }
 
+        public virtual bool CheckAssetIncremented(List<Guid> listId)
+        {
+            string procedureNameCommand = "Proc_fixed_asset_CheckAssetIncremented";
 
+
+            var parameters = new DynamicParameters();
+
+            var listIdToString = "";
+
+            listIdToString = $"('{string.Join("','", listId)}')";
+
+            parameters.Add("@v_ListIdToString", listIdToString);
+            using (var sqlConnection = new MySqlConnection(_connectionDB))
+            {
+               
+              var result = sqlConnection.QueryMultiple(procedureNameCommand, parameters, commandType: System.Data.CommandType.StoredProcedure);
+              
+        
+                var fixedAssets = result.Read<FixedAsset>().ToList();
+               
+            for(int i=0; i< fixedAssets.Count; i++)
+            {
+                if (fixedAssets[i].active == 1)
+                {
+                    return false;
+                   
+                }
+            }
+            return true;
+            }
+        }
         /// <summary>
         /// lấy dữ liệu xuất ra   file excel
         /// </summary>
@@ -293,9 +324,6 @@ namespace Misa.Web01.HCSN.DL
                         TotalQuantity = TotalQuantity,
                         TotalCost = TotalCosts,
 
-
-
-
                     };
                 }
             }
@@ -303,7 +331,13 @@ namespace Misa.Web01.HCSN.DL
 
         }
 
-
+        /// <summary>
+        /// cập nhật active cho list tài sản
+        /// </summary>
+        /// <param name="listId"></param>
+        /// <param name="active"></param>
+        /// <returns></returns>
+        /// CreatedBy: HTTHOA((9/5/2023)
         public int UpdateFixedAsset(List<Guid> listId, int active)
         {
          

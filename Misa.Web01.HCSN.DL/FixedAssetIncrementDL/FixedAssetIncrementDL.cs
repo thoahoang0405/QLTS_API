@@ -394,6 +394,12 @@ namespace Misa.Web01.HCSN.DL.FixedAssetIncrementDL
             }
 
         }
+        /// <summary>
+        /// xóa nhiều chứng từ
+        /// </summary>
+        /// <param name="listId"></param>
+        /// <returns></returns>
+        /// CreatedBy: HTTHOA((9/5/2023)
         public int DeleteMultipleIncrement(DeleteMultipleIncrement listId)
         {
             string procedureNameCommand = "Proc_fixed_asset_increment_DeleteMultiple";
@@ -437,6 +443,14 @@ namespace Misa.Web01.HCSN.DL.FixedAssetIncrementDL
                 }
             }
         }
+        /// <summary>
+        /// xóa nhiều chi tiết chứng từ
+        /// </summary>
+        /// <param name="listId"></param>
+        /// <param name="sqlConnection"></param>
+        /// <param name="trans"></param>
+        /// <returns></returns>
+        /// CreatedBy: HTTHOA((9/5/2023)
         public int DeleteMultipleIncrementDetail(List<Guid> listId, MySqlConnection sqlConnection, MySqlTransaction trans)
         {
             
@@ -465,6 +479,12 @@ namespace Misa.Web01.HCSN.DL.FixedAssetIncrementDL
             else { return 0; }
 
         }
+        /// <summary>
+        /// check trùng mã
+        /// </summary>
+        /// <param name="record"></param>
+        /// <returns></returns>
+        /// CreatedBy: HTTHOA((9/5/2023)
         public override bool CheckDuplicateCode(FixedAssetIncrement record)
         {
             return base.CheckDuplicateCode(record);

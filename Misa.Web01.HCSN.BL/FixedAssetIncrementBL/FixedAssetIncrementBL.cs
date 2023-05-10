@@ -37,6 +37,7 @@ namespace Misa.Web01.HCSN.BL.FixedAssetIncrementBL
         }
         public int UpdateIncrement(FixedAssetIncrement increment, Guid incrementID)
         {
+            Validate(increment);
             return _incrementDL.UpdateIncrement(increment, incrementID);
         }
         public int DeleteIncrementID(List<Guid>? listFixedAssetID, Guid id)

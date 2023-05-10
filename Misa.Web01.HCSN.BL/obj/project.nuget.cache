@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "lq13dGbmcQyb3oB2FTyiPZSPuMSBhX0/fGiC1deQcKNwFsJ9mrligDl5rIb8NuczBF+aAXvfTXbOQciakZDJ5g==",
+  "dgSpecHash": "WKECSI3BRVrS65deHU7NCa4iQZKMRrAE+/S9xfYSKkGMFlz1rwswtS9W/DBXkTlkObH/IwEstvZeQbGcnYeM5w==",
   "success": true,
   "projectFilePath": "D:\\misa\\HCSN\\API\\Misa.Web01.HCSN\\Misa.Web01.HCSN.BL\\Misa.Web01.HCSN.BL.csproj",
   "expectedPackageFiles": [
@@ -25,6 +25,7 @@
     "C:\\Users\\admin\\.nuget\\packages\\microsoft.netcore.targets\\1.1.0\\microsoft.netcore.targets.1.1.0.nupkg.sha512",
     "C:\\Users\\admin\\.nuget\\packages\\microsoft.win32.systemevents\\6.0.0\\microsoft.win32.systemevents.6.0.0.nupkg.sha512",
     "C:\\Users\\admin\\.nuget\\packages\\mysql.data\\8.0.32\\mysql.data.8.0.32.nupkg.sha512",
+    "C:\\Users\\admin\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512",
     "C:\\Users\\admin\\.nuget\\packages\\portable.bouncycastle\\1.9.0\\portable.bouncycastle.1.9.0.nupkg.sha512",
     "C:\\Users\\admin\\.nuget\\packages\\system.buffers\\4.5.1\\system.buffers.4.5.1.nupkg.sha512",
     "C:\\Users\\admin\\.nuget\\packages\\system.configuration.configurationmanager\\4.4.1\\system.configuration.configurationmanager.4.4.1.nupkg.sha512",
