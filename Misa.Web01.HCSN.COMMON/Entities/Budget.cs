@@ -25,7 +25,7 @@ namespace Misa.Web01.HCSN.COMMON.Entities
         /// </summary>
         public string budget_name { get; set;}
         /// <summary>
-        /// chi phí
+        /// kinh phí
         /// </summary>
         public decimal mount { get; set; }
     }

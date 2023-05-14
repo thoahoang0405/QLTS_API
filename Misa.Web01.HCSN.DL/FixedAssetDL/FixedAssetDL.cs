@@ -163,7 +163,7 @@ namespace Misa.Web01.HCSN.DL
         /// xóa nhiều bản ghi
         /// </summary>
         /// <param name="listId"></param>
-        /// <returns></returns>
+        /// <returns>số bản ghi đã xóa</returns>
         /// CreatedBy: HTTHOA(30/03/2023)
         public int DeleteMultiple(List<Guid> listId)
         {
@@ -210,6 +210,12 @@ namespace Misa.Web01.HCSN.DL
             }
         }
 
+        /// <summary>
+        /// check tài sản xem đã được chứng từ chưa
+        /// </summary>
+        /// <param name="listId"></param>
+        /// <returns>chưa được chứng từ: true, đã được chứn từ: false</returns>
+        /// CreatedBy: (10/05/2023)
         public virtual bool CheckAssetIncremented(List<Guid> listId)
         {
             string procedureNameCommand = "Proc_fixed_asset_CheckAssetIncremented";
@@ -247,7 +253,7 @@ namespace Misa.Web01.HCSN.DL
         /// <param name="keyword"></param>
         /// <param name="departmentID"></param>
         /// <param name="fixedAssetCategoryID"></param>
-        /// <returns></returns>
+        /// <returns> danh sách bản ghi thỏa mãn điều kiện</returns>
         /// CreatedBy: HTTHOA(31/03/2023)
         public PagingData<FixedAsset> FilterFixedAssetExcel(
             string? keyword,
@@ -336,7 +342,7 @@ namespace Misa.Web01.HCSN.DL
         /// </summary>
         /// <param name="listId"></param>
         /// <param name="active"></param>
-        /// <returns></returns>
+        /// <returns>thành công: 1; thất bại:0</returns>
         /// CreatedBy: HTTHOA((9/5/2023)
         public int UpdateFixedAsset(List<Guid> listId, int active)
         {
@@ -365,6 +371,17 @@ namespace Misa.Web01.HCSN.DL
 
             }
         }
+        /// <summary>
+        /// lấy danh sách tài sản cho form chọn
+        /// </summary>
+        /// <param name="keyword"></param>
+        /// <param name="pageSize"></param>
+        /// <param name="voucherId"></param>
+        /// <param name="pageNumber"></param>
+        /// <param name="active"></param>
+        /// <param name="listId"></param>
+        /// <returns>danh sách tài sản</returns>
+        /// CreatedBy: (10/05/2023)
         public PagingData<FixedAsset> FilterChoose(
           string? keyword,
           int? pageSize,

@@ -22,6 +22,7 @@ namespace Misa.Web01.HCSN.BL.FixedAssetIncrementBL
         {
             _incrementDL = incrementDL;
         }
+       
         public PagingData<FixedAssetIncrement> FilterFixedAssetIncrement(
         string? keyword,
         int? pageSize,
@@ -30,6 +31,8 @@ namespace Misa.Web01.HCSN.BL.FixedAssetIncrementBL
         {
             return _incrementDL.FilterFixedAssetIncrement(keyword,pageSize, pageNumber);
         }
+
+       
         public ErrorService InsertIncrement(FixedAssetIncrement paramsInsert)
         {
            
@@ -65,6 +68,7 @@ namespace Misa.Web01.HCSN.BL.FixedAssetIncrementBL
                 }
             }
         }
+       
         public ErrorService UpdateIncrement(FixedAssetIncrement increment, Guid incrementID)
         {
            
@@ -100,10 +104,12 @@ namespace Misa.Web01.HCSN.BL.FixedAssetIncrementBL
                 }
             }
         }
+      
         public int DeleteIncrementID(List<Guid>? listFixedAssetID, Guid id)
         {
             return _incrementDL.DeleteIncrementID(listFixedAssetID,id);
         }
+       
         public int DeleteMultipleIncrement(DeleteMultipleIncrement listId)
         {
             return _incrementDL.DeleteMultipleIncrement(listId);

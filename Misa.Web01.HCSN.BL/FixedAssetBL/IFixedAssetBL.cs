@@ -48,8 +48,34 @@ namespace Misa.Web01.HCSN.BL
             Guid? fixedAssetCategoryID
 
             );
-       public MemoryStream ExportExcel(string? keyword, Guid? departmentID, Guid? fixedAssetCategoryID);
+        /// <summary>
+        /// danh sách xuất file excel
+        /// </summary>
+        /// <param name="keyword"></param>
+        /// <param name="departmentID"></param>
+        /// <param name="fixedAssetCategoryID"></param>
+        /// <returns>danh sách tài sản</returns>
+        /// CreatedBy: (10/05/2023)
+        public MemoryStream ExportExcel(string? keyword, Guid? departmentID, Guid? fixedAssetCategoryID);
+        /// <summary>
+        /// cập nhật trạng thái tài sản 
+        /// </summary>
+        /// <param name="listId"></param>
+        /// <param name="active"></param>
+        /// <returns>thành công: 1; thất bại: 0</returns>
+        /// CreatedBy: (10/05/2023)
         public int UpdateFixedAsset(List<Guid> listId, int active);
+        /// <summary>
+        /// lấy danh sách chọn tài sản
+        /// </summary>
+        /// <param name="keyword"></param>
+        /// <param name="pageSize"></param>
+        /// <param name="voucherId"></param>
+        /// <param name="pageNumber"></param>
+        /// <param name="active"></param>
+        /// <param name="listId"></param>
+        /// <returns>danh sách tài sản</returns>
+        /// CreatedBy: (10/05/2023)
         public PagingData<FixedAsset> FilterChoose(
          string? keyword,
          int? pageSize,

@@ -18,6 +18,14 @@ namespace Misa.Web01.HCSN.DL.FixedAssetIncrementDetailDL
         readonly string _connectionDB = DatabaseContext.ConnectionString;
 
         #endregion
+
+
+        /// <summary>
+        /// lấy danh sách chi tiết chứng từ từ id chứng từ
+        /// </summary>
+        /// <param name="listId"></param>
+        /// <returns>danh sách chi tiết chứng từ</returns>
+        /// CreatedBy: HTTHOA(10/05/2023)
         public IEnumerable<dynamic> SelectByVoucher(Guid listId)
         {
             // lấy procedure name

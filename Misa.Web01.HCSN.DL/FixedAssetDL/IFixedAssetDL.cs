@@ -49,6 +49,14 @@ namespace Misa.Web01.HCSN.DL
         /// <returns></returns>
         /// CreatedBy: HTTHOA(31/03/2022)
         public bool CheckAssetIncremented(List<Guid> listId);
+        /// <summary>
+        /// lấy danh sách tài sản để xuất file excel
+        /// </summary>
+        /// <param name="keyword"></param>
+        /// <param name="departmentID"></param>
+        /// <param name="fixedAssetCategoryID"></param>
+        /// <returns></returns>
+        /// CreatedBy: (10/05/2023)
         public PagingData<FixedAsset> FilterFixedAssetExcel(
             string? keyword,
 
@@ -56,7 +64,25 @@ namespace Misa.Web01.HCSN.DL
             Guid? fixedAssetCategoryID
 
             );
+        /// <summary>
+        /// cập nhật trạng thái tài sản
+        /// </summary>
+        /// <param name="listId"></param>
+        /// <param name="active"></param>
+        /// <returns></returns>
+        /// CreatedBy: (10/05/2023)
         public int UpdateFixedAsset(List<Guid> listId, int active);
+        /// <summary>
+        /// lấy ds tài sản trong bảng chọn
+        /// </summary>
+        /// <param name="keyword"></param>
+        /// <param name="pageSize"></param>
+        /// <param name="voucherId"></param>
+        /// <param name="pageNumber"></param>
+        /// <param name="active"></param>
+        /// <param name="listId"></param>
+        /// <returns>danh sách tài sản</returns>
+        /// CreatedBy: (10/05/2023)
         public PagingData<FixedAsset> FilterChoose(
          string? keyword,
          int? pageSize,

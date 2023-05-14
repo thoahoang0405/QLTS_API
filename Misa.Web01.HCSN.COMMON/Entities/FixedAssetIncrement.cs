@@ -65,7 +65,13 @@ namespace Misa.Web01.HCSN.COMMON.Entities
         /// </summary>
         public DateTime? modified_date { get; set; }
 
+        /// <summary>
+        /// danh sách id tài sản được thêm vào
+        /// </summary>
         public List<Guid> listFixedAssetID { get; set; }
+        /// <summary>
+        /// danh sách tài sản xóa 
+        /// </summary>
         public List<Guid> listFixedAssetIdDelete { get; set; }
     }
 }
