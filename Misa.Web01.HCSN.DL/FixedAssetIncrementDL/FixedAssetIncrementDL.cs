@@ -178,7 +178,7 @@ namespace Misa.Web01.HCSN.DL.FixedAssetIncrementDL
                     {
                         trans.Rollback();
 
-                        throw;
+                        return 0;
                     }
 
                 }

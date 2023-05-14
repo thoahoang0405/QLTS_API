@@ -25,7 +25,7 @@ namespace MISA.WEB01.HCSN.COMMON
         /// <summary>
         /// thông tin chi tiết hơn về lỗi
         /// </summary>
-        public object? Data { get; set; }
+        public IDictionary? Data { get; set; }
 
         /// <summary>
         /// mã tra cứu lỗi 
@@ -41,7 +41,7 @@ namespace MISA.WEB01.HCSN.COMMON
         {
         }
 
-        public ErrorResult(MISAErrorCode errorCode, string? mesage, object? data)
+        public ErrorResult(MISAErrorCode errorCode, string? mesage, IDictionary? data)
         {
             ErrorCode = errorCode;
             Message = mesage;

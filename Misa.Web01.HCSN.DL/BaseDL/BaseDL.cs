@@ -173,48 +173,66 @@ namespace Misa.Web01.HCSN.BL.BaseBL
         /// Lấy mã mới
         /// </summary>
         /// <param name=""></param>
-        /// <returns></returns>
+        /// <returns>mã code mới</returns>
         /// CreatedBy: HTTHOA(16/0333/2023)
 
         public string GetNewCode()
         {
-            using (var sqlConnection = new MySqlConnection(_connectionDB))
+            string tableName = EntityUtilities.GetTableName<T>();
+          
+
+            string newCode = "";
+            // câu lệnh lấy code dài nhất
+         
+
+            using (var sqlConnection = new MySqlConnection(DatabaseContext.ConnectionString))
             {
-                string className = EntityUtilities.GetTableName<T>();
-                string storedProcedureName = $"Proc_{className}_GetMaxCode";
+
+                string storedProcedureName = $"Proc_{tableName}_GetMaxCode";
                 string maxCode = sqlConnection.QueryFirstOrDefault<string>(storedProcedureName, commandType: System.Data.CommandType.StoredProcedure);
-                var regex = new Regex(@"(\D)");
-                string alphaPart = "";
-                string numberPart = "";
+
+                // nếu phần mã thay đổi bằng null thì tạo ra mã mới
+                string prefix = EntityUtilities.GetPreFix<T>();
+                if (maxCode == null) return $"{prefix}00001";
+
+                // lấy vị trí xuất hiện của số đuôi
+                int indexOfNumber = 0;
                 for (int i = maxCode.Length - 1; i >= 0; i--)
                 {
-                    if (regex.IsMatch(maxCode[i].ToString()))
+                    if (maxCode[i] < '0' || maxCode[i] > '9')
                     {
-                        alphaPart = maxCode.Substring(0, i + 1);
+                        indexOfNumber = i + 1;
                         break;
                     }
-                  numberPart = maxCode[i].ToString() + numberPart;
-                }
-                string numberZero = "";
-                string number = "";
-                for(int i=0; i<= numberPart.Length - 1; i++)
-                {
-                    if (numberPart[i].ToString()!="0")
-                    {
-                        number = numberPart.Substring(i);
-                        break;
-                        
-                    }
-                    numberZero = numberPart[i].ToString() + numberZero;
                 }
 
-                // Xử lý sinh mã mới tự động tăng
-                // Tách chuỗi mã lớn nhất trong hệ thống để lấy phần số và chữ riêng
-                string newCode = alphaPart + numberZero+ (Int64.Parse(number) +1).ToString();
-                
-                // Trả về dữ liệu cho client
-                return newCode;
+                // nếu tồn tài số đuôi thì thực hiện cộng 1 không có thì thực hiện thêm đuôi là 0
+                if (indexOfNumber < maxCode.Length)
+                {
+                    // phần số thay đổi và độ dài của số đuôi
+                    var autoNumber = maxCode.Substring(indexOfNumber);
+                    int lengthOfAutoNumber = autoNumber.Length;
+
+                    string newNumber = (Int64.Parse(autoNumber) + 1).ToString();
+
+                    // nếu độ dài số đuôi nhỏ hơn số đuôi trước đó thì thực hiện nối '0' vào trước 
+                    if (newNumber.Length < lengthOfAutoNumber)
+                    {
+                        for (int i = newNumber.Length; i < lengthOfAutoNumber; i++)
+                        {
+                            newNumber = '0' + newNumber;
+                        }
+                    }
+
+                    newCode = maxCode.Substring(0, indexOfNumber) + newNumber;
+                }
+                else
+                {
+                    newCode = maxCode + '0';
+                }
             }
+            return newCode;
+         
         }
         /// <summary>
         /// lấy mã code và check trùng mã

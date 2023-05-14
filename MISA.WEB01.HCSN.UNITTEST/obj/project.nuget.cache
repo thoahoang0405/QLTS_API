@@ -1,10 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "p9hdNXjQAnjQGGaB9WhXiGEjdm4exWHlmCkEOwtkQtrE62VNm8IStp+pTLOEabWPzsK4osJx4l4K6spCoQN9hw==",
+  "dgSpecHash": "6Eyfprtfx8J5XwnxX+HOxu/GG/yGRbrJ4py4HqAB7p2uL6DwE1RBCa4UOOsMcE+ZucVSSpurrO6wXPUQO8uwnA==",
   "success": true,
   "projectFilePath": "D:\\misa\\HCSN\\API\\Misa.Web01.HCSN\\MISA.WEB01.HCSN.UNITTEST\\MISA.WEB01.HCSN.UNITTEST.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\admin\\.nuget\\packages\\coverlet.collector\\3.1.2\\coverlet.collector.3.1.2.nupkg.sha512",
+    "C:\\Users\\admin\\.nuget\\packages\\csquery\\1.3.4\\csquery.1.3.4.nupkg.sha512",
     "C:\\Users\\admin\\.nuget\\packages\\dapper\\2.0.123\\dapper.2.0.123.nupkg.sha512",
     "C:\\Users\\admin\\.nuget\\packages\\epplus\\6.2.1\\epplus.6.2.1.nupkg.sha512",
     "C:\\Users\\admin\\.nuget\\packages\\epplus.interfaces\\6.1.1\\epplus.interfaces.6.1.1.nupkg.sha512",
@@ -119,5 +120,16 @@
     "C:\\Users\\admin\\.nuget\\packages\\system.threading.tasks.extensions\\4.5.1\\system.threading.tasks.extensions.4.5.1.nupkg.sha512",
     "C:\\Users\\admin\\.nuget\\packages\\system.windows.extensions\\4.7.0\\system.windows.extensions.4.7.0.nupkg.sha512"
   ],
-  "logs": []
+  "logs": [
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'CsQuery 1.3.4' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net6.0'. This package may not be fully compatible with your project.",
+      "libraryId": "CsQuery",
+      "targetGraphs": [
+        "net6.0"
+      ]
+    }
+  ]
 }

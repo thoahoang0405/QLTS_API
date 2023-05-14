@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Misa.Web01.HCSN.COMMON.Entities.DTO;
 using Misa.Web01.HCSN.COMMON.Resource;
 using MISA.WEB01.HCSN.COMMON;
 using MySqlConnector;
@@ -30,49 +31,51 @@ namespace MISA.WEB01.HCSN
         /// sinh ra đối tượng lỗi trả về khi lỗi server
         /// </summary>
         /// <returns>Đối tượng lỗi </returns>
-        public static ErrorResult? GenerateServerErrorResult()
-        {
-            var errorResult = new ErrorResult(
-                MISAErrorCode.ServerError,
-                ErrorResource.ServerException,
-                ErrorResource.ServerException);
+        //public static ErrorResult? GenerateServerErrorResult()
+        //{
+        //    var errorResult = new ErrorResult(
+        //        MISAErrorCode.ServerError,
+        //        ErrorResource.ServerException,
+        //        ErrorResource.ServerException);
 
-            return errorResult;
+        //    return errorResult;
 
-        }
+        //}
 
         /// <summary>
         /// sinh ra đối tượng lỗi trả về khi không tìm thấy dữ liệu
         /// </summary>
         /// <returns>Đối tượng lỗi </returns>
-        public static ErrorResult? GenerateNotFoundErrorResult()
+        //public static ErrorResult? GenerateNotFoundErrorResult()
+        //{
+        //    var errorResult = new ErrorResult(
+        //        MISAErrorCode.NotFound,
+        //        ErrorResource.NotFound,
+        //       );
+
+        //    return errorResult;
+
+        //}
+
+        public static ErrorResult? GenerateValidateErrorResult()
         {
-            var errorResult = new ErrorResult(
-                MISAErrorCode.NotFound,
-                ErrorResource.NotFound,
-                ErrorResource.NotFoundDev);
-
-            return errorResult;
-
-        }
-
-        public static ErrorResult? GenerateValidateErrorResult(ErrorService ex)
-        {
+            ErrorService ex= new ErrorService();
             var errorResult = new ErrorResult(
                 ex.ErrorCode,
-                ex.Message,
-                ex.Data
+                ex.ErrorMessage,
+                ex.Errors
                 );
 
             return errorResult;
         }
 
-        public static ErrorResult? GenerateDuplicateErrorResult(ErrorService ex)
+        public static ErrorResult? GenerateDuplicateErrorResult()
         {
+            ErrorService ex = new ErrorService();
             var errorResult = new ErrorResult(
                 ex.ErrorCode,
-                ex.Message,
-                ex.Data
+                ex.ErrorMessage,
+                ex.Errors
                 );
 
             return errorResult;

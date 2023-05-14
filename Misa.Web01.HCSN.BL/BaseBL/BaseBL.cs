@@ -1,5 +1,7 @@
 ﻿using Misa.Web01.HCSN.BL;
 using Misa.Web01.HCSN.COMMON;
+using Misa.Web01.HCSN.COMMON.Entities;
+using Misa.Web01.HCSN.COMMON.Entities.DTO;
 using Misa.Web01.HCSN.COMMON.Resource;
 using MISA.WEB01.HCSN.Common.entities;
 using MISA.WEB01.HCSN.COMMON;
@@ -33,11 +35,39 @@ namespace Misa.Web01.HCSN.BL
         /// <param name="record"></param>
         /// <returns></returns>
         /// CreatedBy: HTTHOA(16/03/2023)
-        public virtual Guid InsertRecord(T record)
+        public virtual ErrorService InsertRecord(T record)
         {
-            Validate(record);
+            var validateResult = Validate(record);
 
-            return _baseDL.InsertRecord(record);
+            if (validateResult.ErrorCode == MISAErrorCode.DuplicateCode || validateResult.ErrorCode == MISAErrorCode.Validate)
+            {
+                return new ErrorService()
+                {
+                    ErrorMessage = validateResult.ErrorMessage,
+                    Errors = validateResult.Errors,
+                    ErrorCode = validateResult.ErrorCode
+                };
+                
+            }
+            else
+            {
+                var numberResult = _baseDL.InsertRecord(record);
+                if (numberResult != Guid.Empty)
+                {
+                    return new ErrorService()
+                    {
+                        ErrorCode = MISAErrorCode.Ok
+                    };
+                }
+                else
+                {
+                    return new ErrorService()
+                    {
+
+                        ErrorCode = MISAErrorCode.ServerError
+                    };
+                }
+            }
 
         }
 
@@ -47,10 +77,40 @@ namespace Misa.Web01.HCSN.BL
         /// <param name="entity"></param>
         /// <returns></returns>
         /// CreatedBy: HTTHOA(17/03/2023)
-        public virtual int UpdateRecord(T entity, Guid id)
+        public virtual ErrorService UpdateRecord(T entity, Guid id)
         {
-            Validate(entity);
-            return _baseDL.UpdateRecord(entity, id);
+            var validateResult = Validate(entity);
+
+            if (validateResult.ErrorCode == MISAErrorCode.DuplicateCode || validateResult.ErrorCode == MISAErrorCode.Validate)
+            {
+                return new ErrorService()
+                {
+                    ErrorMessage = validateResult.ErrorMessage,
+                    Errors = validateResult.Errors,
+                    ErrorCode = validateResult.ErrorCode
+                };
+
+            }
+            else
+            {
+                var numberResult = _baseDL.UpdateRecord(entity, id);
+                if (numberResult>0)
+                {
+                    return new ErrorService()
+                    {
+                        ErrorCode = MISAErrorCode.Ok
+                    };
+                }
+                else
+                {
+                    return new ErrorService()
+                    {
+
+                        ErrorCode = MISAErrorCode.ServerError
+                    };
+                }
+            }
+           
         }
         /// <summary>
         /// lấy tất cả bản  ghi
@@ -99,16 +159,18 @@ namespace Misa.Web01.HCSN.BL
         /// </summary>
         /// <param name="record"></param>
         /// <exception cref="ExceptionService"></exception>
-        public virtual void Validate(T record)
+        public virtual ErrorService Validate(T record)
         {
 
             // lấy danh sách property
             string className = typeof(T).Name;
             var properties = typeof(T).GetProperties();
+            //ErrorService error = new ErrorService();
 
             // tạo dictionerry để lưu lại lỗi
 
             var errorsData = new Dictionary<string, object>();
+
 
             // duyệt để validate theo từng property
             foreach (var property in properties)
@@ -164,13 +226,18 @@ namespace Misa.Web01.HCSN.BL
                         if (!_baseDL.CheckDuplicateCode(record))
                         {
                             errorMsg.Add($"{MISAResource.GetResource(property.Name)} {ErrorResource.DuplicateKey}");
-                            errorsData.Add(property.Name,errorMsg);
-                            throw new ErrorService(ErrorResource.ValidateFail, errorsData, MISAErrorCode.DuplicateCode);
+                            errorsData.Add(property.Name, errorMsg);
+                            return new ErrorService()
+                            {
+                                ErrorMessage = ErrorResource.ValidateFail,
+                                Errors = errorsData,
+                                ErrorCode = MISAErrorCode.DuplicateCode
+                            };
+
                         }
                     }
 
                 }
-
 
                 if (errorMsg.Count > 0)
                 {
@@ -180,11 +247,27 @@ namespace Misa.Web01.HCSN.BL
 
             if (errorsData.Count > 0)
             {
-                throw new ErrorService(ErrorResource.ValidateFail, errorsData, MISAErrorCode.Validate);
+
+            return new ErrorService()
+            {
+                ErrorMessage = ErrorResource.ValidateFail,
+                Errors = errorsData,
+                ErrorCode = MISAErrorCode.Validate,
+            };
+            }
+            else
+            {
+                return new ErrorService()
+                {
+                 
+                    ErrorCode = MISAErrorCode.Ok,
+                };
             }
 
         }
-       
+
+
+
         #endregion
     }
 }

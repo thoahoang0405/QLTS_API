@@ -48,23 +48,24 @@ namespace MISA.WEB01.HCSN.BaseControllers
                 var numberOfAffectedRows = _baseBL.InsertRecord(record);
 
 
-                if (numberOfAffectedRows != Guid.Empty)
+                if (numberOfAffectedRows.ErrorCode== MISAErrorCode.Ok)
                 {
-                    return StatusCode(StatusCodes.Status201Created, numberOfAffectedRows);
+                    return StatusCode(StatusCodes.Status201Created, numberOfAffectedRows.ErrorCode);
 
                 }
-                return StatusCode(StatusCodes.Status500InternalServerError, HandleError.GenerateServerErrorResult());
-
-            }
-
-
-            catch (ErrorService ex)
-            {
-                if (ex.ErrorCode == MISAErrorCode.DuplicateCode)
+                else
                 {
-                    return StatusCode(StatusCodes.Status400BadRequest, HandleError.GenerateDuplicateErrorResult(ex));
+                    
+                        return StatusCode(StatusCodes.Status400BadRequest, new ErrorResult 
+                        { 
+                            ErrorCode=numberOfAffectedRows.ErrorCode,
+                            Message=numberOfAffectedRows.ErrorMessage,
+                            Data=numberOfAffectedRows.Errors
+                        });
+                   
                 }
-                return StatusCode(StatusCodes.Status400BadRequest, HandleError.GenerateValidateErrorResult(ex));
+               
+                
             }
             catch (Exception e)
             {
@@ -84,28 +85,32 @@ namespace MISA.WEB01.HCSN.BaseControllers
 
             try
             {
+                var numberOfAffectedRows = _baseBL.UpdateRecord(entity,id);
 
-                int numberOfAffectedRows = _baseBL.UpdateRecord(entity, id);
 
-                if (numberOfAffectedRows > 0)
+                if (numberOfAffectedRows.ErrorCode == MISAErrorCode.Ok)
                 {
-                    return StatusCode(StatusCodes.Status200OK, id);
+                    return StatusCode(StatusCodes.Status200OK, numberOfAffectedRows.ErrorCode);
+
                 }
-                return StatusCode(StatusCodes.Status400BadRequest, ErrorResource.NotFound);
-            }
-            catch (ErrorService ex)
-            {
-                if (ex.ErrorCode == MISAErrorCode.DuplicateCode)
+                else
                 {
-                    return StatusCode(StatusCodes.Status400BadRequest, HandleError.GenerateDuplicateErrorResult(ex));
+
+                    return StatusCode(StatusCodes.Status400BadRequest, new ErrorResult
+                    {
+                        ErrorCode = numberOfAffectedRows.ErrorCode,
+                        Message = numberOfAffectedRows.ErrorMessage,
+                        Data = numberOfAffectedRows.Errors
+                    });
+
                 }
-                return StatusCode(StatusCodes.Status400BadRequest, HandleError.GenerateValidateErrorResult(ex));
+
+
             }
             catch (Exception e)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, ErrorResource.ServerException);
             }
-
         }
 
         /// <summary>

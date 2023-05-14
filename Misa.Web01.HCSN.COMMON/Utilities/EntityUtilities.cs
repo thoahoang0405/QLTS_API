@@ -1,4 +1,6 @@
-﻿using System;
+﻿
+using MISA.WEB01.HCSN.COMMON.Entities;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -20,5 +22,17 @@ namespace MISA.WEB01.HCSN.COMMON.Utilities
             }
             return tableName;
         }
+    public static string GetPreFix<T>()
+    {
+        string prefix = "";
+
+        var tableAttributes = typeof(T).GetTypeInfo().GetCustomAttributes<PrefixAttribute>();
+        if (tableAttributes.Count() > 0)
+        {
+                prefix = tableAttributes.First().Name;
+         }
+
+        return prefix;
+    }
     }
 }

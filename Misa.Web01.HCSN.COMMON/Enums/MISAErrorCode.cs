@@ -11,6 +11,7 @@ namespace MISA.WEB01.HCSN.COMMON
     /// </summary>
     public enum MISAErrorCode
     {
+        Ok=0,
         /// <summary>
         /// Lỗi do exception chưa xác định được
         /// </summary>

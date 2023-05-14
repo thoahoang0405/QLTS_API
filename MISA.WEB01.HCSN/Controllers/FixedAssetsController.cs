@@ -92,14 +92,14 @@ namespace MISA.WEB01.HCSN.Controllers
                 }
 
             }
-            catch (ErrorService ex)
-            {
-                if (ex.ErrorCode == MISAErrorCode.Incremented)
-                {
-                return StatusCode(StatusCodes.Status400BadRequest, HandleError.GenerateValidateErrorResult(ex));
-                }
-                return StatusCode(StatusCodes.Status400BadRequest, HandleError.GenerateValidateErrorResult(ex));
-            }
+            //catch (ErrorService ex)
+            //{
+            //    if (ex.ErrorCode == MISAErrorCode.Incremented)
+            //    {
+            //    return StatusCode(StatusCodes.Status400BadRequest, HandleError.GenerateValidateErrorResult(ex));
+            //    }
+            //    return StatusCode(StatusCodes.Status400BadRequest, HandleError.GenerateValidateErrorResult(ex));
+            //}
             catch (Exception e)
             {
                 return StatusCode(StatusCodes.Status400BadRequest, ErrorResource.ExceptionMsg);

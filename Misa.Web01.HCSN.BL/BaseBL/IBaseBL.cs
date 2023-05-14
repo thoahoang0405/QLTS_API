@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Misa.Web01.HCSN.COMMON.Entities.DTO;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,7 +15,7 @@ namespace Misa.Web01.HCSN.BL
         /// <param name="record"></param>
         /// <returns></returns>
         /// CreatedBy: HTTHOA(15/03/2023)
-        public Guid InsertRecord(T record);
+        public ErrorService InsertRecord(T record);
 
         /// <summary>
         /// API sửa bản ghi
@@ -22,7 +23,7 @@ namespace Misa.Web01.HCSN.BL
         /// <param name="record"></param>
         /// <returns></returns>
         /// CreatedBy: HTTHOA(15/03/2023)
-        public int UpdateRecord(T entity, Guid id);
+        public ErrorService UpdateRecord(T entity, Guid id);
 
         /// <summary>
         /// APIlấy tất cả bản ghi

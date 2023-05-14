@@ -22,6 +22,7 @@ namespace Misa.Web01.HCSN.COMMON.Entities
         /// </summary>
         [Required]
         [DuplicateAttribute]
+        [StringLength(50, MinimumLength = 2)]
         public string voucher_code { get; set; }
         /// <summary>
         /// ngày chứng từ

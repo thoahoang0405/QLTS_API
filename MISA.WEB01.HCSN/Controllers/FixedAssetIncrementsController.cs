@@ -11,6 +11,7 @@ using MISA.WEB01.HCSN.Common.entities;
 using MISA.WEB01.HCSN.COMMON;
 using MISA.WEB01.HCSN.COMMON.Entities;
 using Swashbuckle.AspNetCore.Annotations;
+using static Dapper.SqlMapper;
 
 namespace MISA.WEB01.HCSN.Controllers
 {
@@ -58,26 +59,27 @@ namespace MISA.WEB01.HCSN.Controllers
 
             try
             {
-                int result = _iIncrement.InsertIncrement(paramsInsert);
+                var numberOfAffectedRows = _iIncrement.InsertIncrement(paramsInsert);
 
 
-                if (result != 0)
+                if (numberOfAffectedRows.ErrorCode == MISAErrorCode.Ok)
                 {
-                    return StatusCode(StatusCodes.Status201Created, result);
+                    return StatusCode(StatusCodes.Status201Created, numberOfAffectedRows.ErrorCode);
 
                 }
-                return StatusCode(StatusCodes.Status500InternalServerError, HandleError.GenerateServerErrorResult());
-
-            }
-
-
-            catch (ErrorService ex)
-            {
-                if (ex.ErrorCode == MISAErrorCode.DuplicateCode)
+                else
                 {
-                    return StatusCode(StatusCodes.Status400BadRequest, HandleError.GenerateDuplicateErrorResult(ex));
+
+                    return StatusCode(StatusCodes.Status400BadRequest, new ErrorResult
+                    {
+                        ErrorCode = numberOfAffectedRows.ErrorCode,
+                        Message = numberOfAffectedRows.ErrorMessage,
+                        Data = numberOfAffectedRows.Errors
+                    });
+
                 }
-                return StatusCode(StatusCodes.Status400BadRequest, HandleError.GenerateValidateErrorResult(ex));
+
+
             }
             catch (Exception e)
             {
@@ -98,22 +100,27 @@ namespace MISA.WEB01.HCSN.Controllers
 
             try
             {
+                var numberOfAffectedRows = _iIncrement.UpdateIncrement(increment, incrementID);
 
-                int numberOfAffectedRows = _iIncrement.UpdateIncrement(increment, incrementID);
 
-                if (numberOfAffectedRows > 0)
+                if (numberOfAffectedRows.ErrorCode == MISAErrorCode.Ok)
                 {
-                    return StatusCode(StatusCodes.Status200OK, incrementID);
+                    return StatusCode(StatusCodes.Status200OK, numberOfAffectedRows.ErrorCode);
+
                 }
-                return StatusCode(StatusCodes.Status400BadRequest, ErrorResource.NotFound);
-            }
-            catch (ErrorService ex)
-            {
-                if (ex.ErrorCode == MISAErrorCode.DuplicateCode)
+                else
                 {
-                    return StatusCode(StatusCodes.Status400BadRequest, HandleError.GenerateDuplicateErrorResult(ex));
+
+                    return StatusCode(StatusCodes.Status400BadRequest, new ErrorResult
+                    {
+                        ErrorCode = numberOfAffectedRows.ErrorCode,
+                        Message = numberOfAffectedRows.ErrorMessage,
+                        Data = numberOfAffectedRows.Errors
+                    });
+
                 }
-                return StatusCode(StatusCodes.Status400BadRequest, HandleError.GenerateValidateErrorResult(ex));
+
+
             }
             catch (Exception e)
             {

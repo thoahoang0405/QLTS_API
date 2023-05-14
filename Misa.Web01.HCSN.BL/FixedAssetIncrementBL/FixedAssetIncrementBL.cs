@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static Dapper.SqlMapper;
 
 namespace Misa.Web01.HCSN.BL.FixedAssetIncrementBL
 {
@@ -29,16 +30,75 @@ namespace Misa.Web01.HCSN.BL.FixedAssetIncrementBL
         {
             return _incrementDL.FilterFixedAssetIncrement(keyword,pageSize, pageNumber);
         }
-        public int InsertIncrement(FixedAssetIncrement paramsInsert)
+        public ErrorService InsertIncrement(FixedAssetIncrement paramsInsert)
         {
-            Validate(paramsInsert);
+           
+            var validateResult = Validate(paramsInsert);
 
-            return _incrementDL.InsertIncrement(paramsInsert);
+            if (validateResult.ErrorCode == MISAErrorCode.DuplicateCode || validateResult.ErrorCode == MISAErrorCode.Validate)
+            {
+                return new ErrorService()
+                {
+                    ErrorMessage = validateResult.ErrorMessage,
+                    Errors = validateResult.Errors,
+                    ErrorCode = validateResult.ErrorCode
+                };
+
+            }
+            else
+            {
+                var numberResult = _incrementDL.InsertIncrement(paramsInsert);
+                if (numberResult>0)
+                {
+                    return new ErrorService()
+                    {
+                        ErrorCode = MISAErrorCode.Ok
+                    };
+                }
+                else
+                {
+                    return new ErrorService()
+                    {
+
+                        ErrorCode = MISAErrorCode.ServerError
+                    };
+                }
+            }
         }
-        public int UpdateIncrement(FixedAssetIncrement increment, Guid incrementID)
+        public ErrorService UpdateIncrement(FixedAssetIncrement increment, Guid incrementID)
         {
-            Validate(increment);
-            return _incrementDL.UpdateIncrement(increment, incrementID);
+           
+            var validateResult = Validate(increment);
+
+            if (validateResult.ErrorCode == MISAErrorCode.DuplicateCode || validateResult.ErrorCode == MISAErrorCode.Validate)
+            {
+                return new ErrorService()
+                {
+                    ErrorMessage = validateResult.ErrorMessage,
+                    Errors = validateResult.Errors,
+                    ErrorCode = validateResult.ErrorCode
+                };
+
+            }
+            else
+            {
+                var numberResult = _incrementDL.UpdateIncrement(increment, incrementID);
+                if (numberResult > 0)
+                {
+                    return new ErrorService()
+                    {
+                        ErrorCode = MISAErrorCode.Ok
+                    };
+                }
+                else
+                {
+                    return new ErrorService()
+                    {
+
+                        ErrorCode = MISAErrorCode.ServerError
+                    };
+                }
+            }
         }
         public int DeleteIncrementID(List<Guid>? listFixedAssetID, Guid id)
         {
@@ -48,9 +108,9 @@ namespace Misa.Web01.HCSN.BL.FixedAssetIncrementBL
         {
             return _incrementDL.DeleteMultipleIncrement(listId);
         }
-        public override void Validate(FixedAssetIncrement record)
+        public override ErrorService Validate(FixedAssetIncrement record)
         {
-            base.Validate(record);
+            return base.Validate(record);
         }
     }
 }

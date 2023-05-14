@@ -151,6 +151,15 @@ namespace Misa.Web01.HCSN.COMMON.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Thành công.
+        /// </summary>
+        public static string Ok {
+            get {
+                return ResourceManager.GetString("Ok", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to phải có giá trị từ .
         /// </summary>
         public static string Range {

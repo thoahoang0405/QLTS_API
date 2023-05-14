@@ -147,6 +147,9 @@
   <data name="NotFoundDev" xml:space="preserve">
     <value>Không tìm thấy dữ liệu</value>
   </data>
+  <data name="Ok" xml:space="preserve">
+    <value>Thành công</value>
+  </data>
   <data name="Range" xml:space="preserve">
     <value>phải có giá trị từ </value>
   </data>

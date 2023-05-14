@@ -16,9 +16,10 @@ namespace Misa.Web01.HCSN.BL.FixedAssetIncrementBL
         int? pageSize,
         int? pageNumber
         );
-        public int InsertIncrement(FixedAssetIncrement paramsInsert);
-        public int UpdateIncrement(FixedAssetIncrement increment, Guid incrementID);
+        public ErrorService InsertIncrement(FixedAssetIncrement paramsInsert);
+        public ErrorService UpdateIncrement(FixedAssetIncrement increment, Guid incrementID);
         public int DeleteIncrementID(List<Guid>? listFixedAssetID, Guid id);
         public int DeleteMultipleIncrement(DeleteMultipleIncrement listId);
+        
     }
 }

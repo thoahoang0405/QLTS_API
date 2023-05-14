@@ -32,7 +32,7 @@ namespace MISA.WEB01.HCSN.Common.entities
 
         [Required]
         [DuplicateAttribute]
-        [StringLength(7, MinimumLength = 7)]
+        [StringLength(50, MinimumLength = 0)]
         public string fixed_asset_code { get; set; }
 
         /// <summary>
@@ -143,6 +143,7 @@ namespace MISA.WEB01.HCSN.Common.entities
         public string? total_cost { get; set; }
 
         public Guid? voucher_id { get; set; }
+        public string? voucher_code { get; set; }
     }
     public class Budget{
         public string budget_name { get; set; }

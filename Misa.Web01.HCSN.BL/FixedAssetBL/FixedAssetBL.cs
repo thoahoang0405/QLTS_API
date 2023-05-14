@@ -13,6 +13,7 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Runtime.Intrinsics.Arm;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -70,7 +71,7 @@ namespace Misa.Web01.HCSN.BL
             {
                 errorMsg.Add($"Tài sản đã được ghi tăng");
                 errorsData.Add("active", errorMsg);
-                throw new ErrorService(ErrorResource.ValidateFail, errorsData, MISAErrorCode.Incremented);
+                //throw new ErrorService(ErrorResource.ValidateFail, errorsData, MISAErrorCode.Incremented);
             }
         }
         /// <summary>
@@ -209,12 +210,25 @@ namespace Misa.Web01.HCSN.BL
         {
             return _fixedAssetDL.FilterChoose(keyword,pageSize, voucherId, pageNumber,active, listId);
         }
-        public override int UpdateRecord(FixedAsset entity, Guid id)
+        public override ErrorService UpdateRecord(FixedAsset entity, Guid id)
         {
 
-            Validate(entity);
-            ValidateCost(entity);
-            return base.UpdateRecord(entity, id);
+           var validateCost= ValidateCost(entity);
+            if( validateCost.ErrorCode==MISAErrorCode.Ok)
+            {
+                var result= base.UpdateRecord(entity, id);
+                return result;
+            }
+            else
+            {
+                return new ErrorService()
+                {
+                    ErrorMessage = validateCost.ErrorMessage,
+                    Errors = validateCost.Errors,
+                    ErrorCode =validateCost.ErrorCode,
+                };
+            }
+          
         }
         /// <summary>
         /// validate nguồn hình thành
@@ -222,7 +236,7 @@ namespace Misa.Web01.HCSN.BL
         /// <param name="asset"></param>
         /// <exception cref="ErrorService"></exception>
         /// CreatedBy: HTTHOA((9/5/2023)
-        public virtual void ValidateCost(FixedAsset asset)
+        public virtual ErrorService ValidateCost(FixedAsset asset)
         {
           
             // lấy danh sách property
@@ -259,10 +273,7 @@ namespace Misa.Web01.HCSN.BL
                     errorValue.Add(Resource.required_value);
                  
                 }
-               
-                // duyệt để validate theo từng property
-
-              
+            
             }
             
             if(errorName.Count> 0)
@@ -279,12 +290,28 @@ namespace Misa.Web01.HCSN.BL
             {
                 errorMsg.Add(Resource.duplicate_source);
                 errorsData.Add(Resource.source, errorMsg);
-                throw new ErrorService(ErrorResource.ValidateFail, errorsData, MISAErrorCode.DuplicateSource);
+                return new ErrorService() {
+                   ErrorMessage = ErrorResource.ValidateFail, 
+                  Errors = errorsData,
+                  ErrorCode = MISAErrorCode.DuplicateSource };
             }
             if (errorsData.Count > 0)
             {
- 
-                throw new ErrorService(ErrorResource.ValidateFail, errorsData, MISAErrorCode.Validate);
+
+                return new ErrorService()
+                {
+                    ErrorMessage = ErrorResource.ValidateFail,
+                    Errors = errorsData,
+                    ErrorCode = MISAErrorCode.Validate,
+                };
+            }
+            else
+            {
+                return new ErrorService()
+                {
+
+                    ErrorCode = MISAErrorCode.Ok,
+                };
             }
         }
         #endregion
